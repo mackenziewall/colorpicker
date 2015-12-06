@@ -1,3 +1,7 @@
+## Color Picker
+This is just a simple web app for collaborating on color schemes.  
+
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

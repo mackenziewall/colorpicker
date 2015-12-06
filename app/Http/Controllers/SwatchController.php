@@ -33,7 +33,7 @@ class SwatchController extends Controller
         //make our page
         $swatch = new Swatch;
         $swatch->save();
-        return alphaID($swatch->id);
+        return redirect('hex/' . alphaID($swatch->id));
     }
 
     /**

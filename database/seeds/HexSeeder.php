@@ -2,11 +2,12 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+
 use App\hex;
 use App\swatch;
 use App\block;
 
-class DatabaseSeeder extends Seeder
+class HexSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,14 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        swatch::truncate();
-        block::truncate();
-        hex::truncate();
+        $faker = Faker::create();
 
-        Model::unguard();
-
-        $this->call(HexTableSeeder::class);
-
-        Model::reguard();
+        foreach(range(1,130) as $index)
+        {
+            Swatch::create();
+        }
     }
 }

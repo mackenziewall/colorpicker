@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::resource('hex','SwatchController');
+// Route::resource('hex.b','BlockController');
+// Route::resource('hex.b.v','HexController');
+
+
+Route::get('hex/create', 'SwatchController@create');
+Route::get('hex/{id}', 'SwatchController@show');
+Route::get('hex/{id}/status', 'SwatchController@status');
+
+
+
+// Route::controller('users', 'UserController');

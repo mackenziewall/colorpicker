@@ -55,8 +55,13 @@ class Swatch extends Model
     public function status()
     {
         $query = $this->hex()->select('block_id', 'value', 'hex.id')->orderBy('hex.created_at', 'desc')->getResults();
-        $data['status'] = $query->toArray()[0]['id'];
-        return $data;
+        #$data['status'] = $query->toArray()[0]['id'];
+        return $query->toArray()[0]['id'];
     }
 
+    public function addBlock() {
+        $block = new Block;
+        $block->swatch_id = $this->id;
+        $block->save();
+    }
 }

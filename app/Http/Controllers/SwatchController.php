@@ -33,7 +33,7 @@ class SwatchController extends Controller
         //make our page
         $swatch = new Swatch;
         $swatch->save();
-        return redirect('hex/' . alphaID($swatch->id));
+        return array_merge($swatch->values(),["id" => alphaID($swatch->id)]);
     }
 
     /**
@@ -65,10 +65,14 @@ class SwatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function status($id)
+    public function check($id, $status)
     {
         $swatch = Swatch::find(alphaID($id, true));
-        return $swatch->status();
+
+        if($swatch->status() == $status)
+            return ["status" => $swatch->status()];
+
+        return $swatch->values();
     }
 
     /**

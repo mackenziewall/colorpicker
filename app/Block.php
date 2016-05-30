@@ -41,4 +41,14 @@ class Block extends Model
         return $this->belongsTo('App\Swatch');
     }
 
+    public function iterate( $color )
+    {
+        $hex = new Hex;
+        $hex->block_id = $this->id;
+        $hex->value = substr($color);
+        $hex->save();
+        
+        return ['status' => $hex->id()];
+    }
+
 }

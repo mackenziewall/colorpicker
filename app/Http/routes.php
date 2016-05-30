@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 // Route::resource('hex','SwatchController');
@@ -20,9 +20,14 @@ Route::get('/', function () {
 // Route::resource('hex.b.v','HexController');
 
 
-Route::get('hex/create', 'SwatchController@create');
-Route::get('hex/{id}', 'SwatchController@show');
-Route::get('hex/{id}/status', 'SwatchController@status');
+Route::get('ajax/hex/{id}', 'SwatchController@show');
+Route::get('ajax/hex/create', 'SwatchController@create');
+Route::post('ajax/hex/{id}', 'SwatchController@show');
+Route::post('ajax/hex/create', 'SwatchController@create');
+
+
+Route::get('ajax/hex/{id}/{statusid}', 'SwatchController@check');
+Route::get('ajax/hex/update/{id}/{statusid}', 'SwatchController@checkin');
 
 
 

@@ -20,14 +20,14 @@ Route::get('/', function () {
 // Route::resource('hex.b.v','HexController');
 
 
-Route::get('ajax/hex/{id}', 'SwatchController@show');
-Route::get('ajax/hex/create', 'SwatchController@create');
-Route::post('ajax/hex/{id}', 'SwatchController@show');
-Route::post('ajax/hex/create', 'SwatchController@create');
+Route::get('hex/create', 'SwatchController@create');
+Route::get('hex/get/{id}', 'SwatchController@show');
+// Route::post('ajax/hex/{id}', 'SwatchController@show');
+// Route::post('ajax/hex/create', 'SwatchController@create');
 
 
-Route::get('ajax/hex/{id}/{statusid}', 'SwatchController@check');
-Route::get('ajax/hex/update/{id}/{statusid}', 'SwatchController@checkin');
+// Route::get('hex/{id}/{statusid}', 'SwatchController@check');
+// Route::get('hex/update/{id}/{statusid}', 'SwatchController@checkin');
 
 
 

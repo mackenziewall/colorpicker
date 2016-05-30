@@ -4,6 +4,7 @@
         <title>HueHueHue</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script type="text/javascript" src="/js/app.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -74,6 +75,10 @@
             }
             .blockbucket{padding:0 20px;}
         }
+        @media (min-width:992px) and (max-width: 1199px)
+        {.colorblock{width:150px !important;}}
+        @media (min-width:768px) and (max-width: 992px)
+        {.colorblock{width:170px !important;}}
         @media (max-width:767px){
             .swatch{display:block;width:100%;max-height:500px;}
             .color-input input{width:98% !important;}
@@ -105,7 +110,7 @@
 
         </style>
     </head>
-    <body role="document" ng-app>
+    <body role="document" ng-app="colorpicker">
         <!-- Fixed navbar -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container">
@@ -124,23 +129,17 @@
                 <li><a href="#lock"><i class="fa fa-lock" aria-hidden="true"></i> Lock</a></li>
                 <li><a href="#sass"><i class="fa fa-file-text-o" aria-hidden="true"></i> Sass</a></li>
                 <li><a href="#share"><i class="fa fa-link" aria-hidden="true"></i> Share</a></li>
-                <li><a href="#contact"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact</a></li>
+                <!--<li><a href="#contact"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact</a></li> Just kidding don't contact me -->
               </ul>
             </div><!--/.nav-collapse -->
           </div>
         </nav>
-        <div class="container theme-showcase" ng-app="huehuehue">
+        <div class="container theme-showcase" ng-controller="SwatchController as swatch">
             <div class="swatch">
                 <div class="startblock block"></div><div class="blockbucket">
-                <div class="colorblock block" id="b1" style="background-color:#F00;"><span class="color-input"><input name="value-b1" value="#1F2030" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b2" style="background-color:#55F;"><span class="color-input"><input name="value-b2" value="#15253F" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b3" style="background-color:#872;"><span class="color-input"><input name="value-b3" value="#182732" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b1" style="background-color:#F00;"><span class="color-input"><input name="value-b1" value="#1F2030" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b2" style="background-color:#55F;"><span class="color-input"><input name="value-b2" value="#15253F" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b3" style="background-color:#872;"><span class="color-input"><input name="value-b3" value="#182732" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b1" style="background-color:#F00;"><span class="color-input"><input name="value-b1" value="#1F2030" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b2" style="background-color:#55F;"><span class="color-input"><input name="value-b2" value="#15253F" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-                <div class="colorblock block" id="b3" style="background-color:#872;"><span class="color-input"><input name="value-b3" value="#182732" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div>
+
+                <div ng-repeat="block in swatch.blocks"><div class="colorblock block" id="block{{block.id}}" style="background-color:#{{block.value}};"><span class="color-input"><input name="value-b1" value="#{{block.value}}" disabled/> </span><a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>
+
                 </div><div class="endblock block"><a href="#add" class="addnew"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
             </div>
         </div>

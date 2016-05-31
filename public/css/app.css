@@ -21,7 +21,17 @@ body{padding-top:60px;background-color:#EEE;}
     font-size:22px;
 }
 .color-input .blabel{
-    text-shadow: 0 1px rgba(0,0,0,.3),1px 0 rgba(0,0,0,.3),0 -1px rgba(0,0,0,.3),-1px 0 rgba(0,0,0,.3);
+    /* layering text shadows looks infinitely better than webkit stroke 
+    since it is aligned to outside/behind text instead of compomising integrity of the text */
+    text-shadow: 
+      0 1px rgba(0,0,0,.3),
+      1px 0 rgba(0,0,0,.3),
+      0 -1px rgba(0,0,0,.3),
+      -1px 0 rgba(0,0,0,.3),
+      1px 1px rgba(0,0,0,.3),
+      1px -1px rgba(0,0,0,.3),
+      -1px 1px rgba(0,0,0,.3),
+      -1px -1px rgba(0,0,0,.3);
     width:60%;
     text-transform: uppercase;
     font-size:26px; 

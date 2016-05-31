@@ -31,7 +31,7 @@
             <div id="navbar" class="navbar-collapse collapse" ng-controller="navigationController as navigation">
               <ul class="nav navbar-nav">
                 <li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
-                <li><a type='button' ng-click="navigation.refresh()"><i class="fa fa-code-fork" aria-hidden="true"></i> <span class="nav-label">Refresh</span></a></li>
+                <li><a type='button' ng-click="navigation.refresh()"><i class="fa fa-refresh" aria-hidden="true"></i> <span class="nav-label">Refresh</span></a></li>
                 <li><a type='button' ng-click="navigation.fork()"><i class="fa fa-code-fork" aria-hidden="true"></i> <span class="nav-label">Fork</span></a></li>
                 <li><a type='button' ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
                 <li><a type='button' ng-click="navigation.clipSass()"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label">Sass</span></a></li>

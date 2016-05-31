@@ -49,13 +49,13 @@
                         <div class="colorblock block" id="block{{block.id}}" style="background-color:#{{block.value}};">
                             <span class="color-input">
                                 <input type="text" class="picker" name="picker-{{block.id}}" value="#{{block.value}}" /> 
-                                <input type="text" class="blabel" name="value-{{block.id}}" value="#{{block.value}}" disabled/> 
+                                <input type="text" class="blabel pointer" name="value-{{block.id}}" value="#{{block.value}}" disabled/> 
                             </span>
-                            <a href="#del" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </div>
                     </span>
                 </div>
-                <div class="endblock block"><a href="#add" class="addnew"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                <div class="endblock block"><a type='button' ng-click="swatch.add()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
             </div>
         </div>
     </body>

@@ -80,9 +80,11 @@ class SwatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function lock($id)
+    public function lock(Request $request)
     {
-        $swatch = Swatch::find(alphaID($id, true));
+        $swatch = Swatch::find(alphaID($request->input('slug'), true));
+        if(!$swatch)
+            return;
         $swatch->lock();
         return $swatch->values();
     }

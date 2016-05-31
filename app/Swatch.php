@@ -66,7 +66,7 @@ class Swatch extends Model
     public function lock()
     {
         $this->lock = 1;
-        $block->save();
+        $this->save();
     }
     public function status()
     {

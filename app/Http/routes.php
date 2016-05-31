@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
-
 Route::get('/', 'SwatchController@create');
 Route::get('create', 'SwatchController@create');
 
@@ -22,23 +18,11 @@ Route::get('hex/{id}', function () {
     return view('hex');
 });
 
-// Route::resource('hex','SwatchController');
-// Route::resource('hex.b','BlockController');
-// Route::resource('hex.b.v','HexController');
-
-
 Route::get('ajax/fetch/{id}', 'SwatchController@show');
 Route::get('ajax/add/{id}', 'SwatchController@addBlock');
 Route::get('ajax/sass/{id}', 'SwatchController@sassExport');
+Route::post('ajax/lock', 'SwatchController@lock');
+Route::post('ajax/update', 'SwatchController@update');
+Route::post('ajax/delete', 'SwatchController@delete');
 
 
-// Route::post('ajax/hex/{id}', 'SwatchController@show');
-// Route::post('ajax/hex/create', 'SwatchController@create');
-
-
-// Route::get('hex/{id}/{statusid}', 'SwatchController@check');
-// Route::get('hex/update/{id}/{statusid}', 'SwatchController@checkin');
-
-
-
-// Route::controller('users', 'UserController');

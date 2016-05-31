@@ -48,8 +48,10 @@ class Swatch extends Model
         {
             $data['blocks'][] = ['id' => $key, 'value' => $value[0]['value']];
         }
-        $data['status'] = $query->toArray()[0]['id'];
-
+        $array = $query->toArray();
+        $mostRecent = end($array);
+        $data['status'] = $mostRecent['id'];
+        $data['lock'] = $this->lock;
         return $data;
     }
     public function hexes()
@@ -60,6 +62,11 @@ class Swatch extends Model
             $data['blocks'][] = ['id' => $key, 'value' => $value[0]['value']];
         }
         return $data;
+    }
+    public function lock()
+    {
+        $this->lock = 1;
+        $block->save();
     }
     public function status()
     {

@@ -75,6 +75,19 @@ class SwatchController extends Controller
     }
 
     /**
+     * Add Lock
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function lock($id)
+    {
+        $swatch = Swatch::find(alphaID($id, true));
+        $swatch->lock();
+        return $swatch->values();
+    }
+
+    /**
      * Display the status/ latest id
      *
      * @param  int  $id

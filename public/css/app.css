@@ -1,9 +1,12 @@
 body{padding-top:60px;background-color:#EEE;}
 .sp-dd{text-shadow:none;}
 .sp-replacer{margin-bottom:9px !important;}
+.nav li:hover .nav-label{opacity:1;}
+.nav li .nav-label{opacity:.3;}
 .block{display:inline-block;float:left;position:relative;}
 .colorblock{height:150px;width:183px;}
 .block:hover .color-input{opacity:1;}
+.nav li{cursor:pointer;}
 .color-input{
     position:absolute; 
     bottom:0;

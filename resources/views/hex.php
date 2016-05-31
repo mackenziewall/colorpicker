@@ -28,12 +28,14 @@
               </button>
               <a class="navbar-brand" href="#">HueHueHue</a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse" ng-controller="navigationController as navigation">
               <ul class="nav navbar-nav">
-                <li><a href="#new">New</a></li>
-                <li><a href="#lock"><i class="fa fa-lock" aria-hidden="true"></i> Lock</a></li>
-                <li><a href="#sass"><i class="fa fa-file-text-o" aria-hidden="true"></i> Sass</a></li>
-                <li><a href="#share"><i class="fa fa-link" aria-hidden="true"></i> Share</a></li>
+                <li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
+                <li><a type='button' ng-click="navigation.refresh()"><i class="fa fa-code-fork" aria-hidden="true"></i> <span class="nav-label">Refresh</span></a></li>
+                <li><a type='button' ng-click="navigation.fork()"><i class="fa fa-code-fork" aria-hidden="true"></i> <span class="nav-label">Fork</span></a></li>
+                <li><a type='button' ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
+                <li><a type='button' ng-click="navigation.clipSass()"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label">Sass</span></a></li>
+                <li><a type='button' ng-click="navigation.clipLink()"><i class="fa fa-link" aria-hidden="true"></i> <span class="nav-label">Share</span></a></li>
                 <!--<li><a href="#contact"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact</a></li> Just kidding don't contact me -->
               </ul>
             </div><!--/.nav-collapse -->

@@ -46,16 +46,16 @@
                 <div class="startblock block"></div>
                 <div class="blockbucket">
                     <span ng-repeat="block in swatch.blocks" repeat-done="layoutDone()">
-                        <div class="colorblock block" id="block{{block.id}}" style="background-color:#{{block.value}};">
+                        <div ng-hide="block.value == ''" class="colorblock block" id="block{{block.id}}" style="background-color:{{block.value | hex}};">
                             <span class="color-input">
-                                <input type="text" class="picker" name="picker-{{block.id}}" value="#{{block.value}}" /> 
-                                <input type="text" class="blabel pointer" name="value-{{block.id}}" value="#{{block.value}}" disabled/> 
+                                <input ng-hide="swatch.lock" type="text" ng-model="block.value" ng-change="swatch.changeblock(block.id,block.value)" class="picker" name="picker-{{block.id}}" value="{{block.value | hex}}" /> 
+                                <input type="text" class="blabel pointer" name="value-{{block.id}}" value="{{block.value | hex}}" disabled/> 
                             </span>
-                            <a class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a ng-hide="swatch.lock" ng-click="swatch.deleteblock(block.id)" class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </div>
                     </span>
                 </div>
-                <div class="endblock block"><a type='button' ng-click="swatch.add()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                <div class="endblock block"><a type='button' ng-click="swatch.addblock()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
             </div>
         </div>
     </body>

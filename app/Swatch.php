@@ -18,6 +18,8 @@ class Swatch extends Model
 
         parent::__construct($attributes); // Eloquent
 
+    }
+    public function init()  {
         $this->save();
 
         //elements
@@ -26,6 +28,7 @@ class Swatch extends Model
         foreach(range(1,$this->initial_blocks) as $index)
         {
             $block[$index] = new Block;
+            $block[$index]->init();
             $block[$index]->swatch_id = $this->id;
             $block[$index]->save();
         }
@@ -43,10 +46,10 @@ class Swatch extends Model
 
     public function values()
     {
-        $query = $this->hex()->select('block_id', 'value', 'hex.id')->orderBy('hex.created_at', 'asc')->getResults();
+        $query = $this->hex()->select('block_id', 'value', 'hex.id')->orderBy('hex.created_at', 'desc')->getResults();
         foreach($query->groupBy('block_id')->toArray() as $key => $value)
         {
-            $data['blocks'][] = ['id' => $key, 'value' => $value[0]['value']];
+            $data['blocks'][$key] = ['id' => $key, 'value' => $value[0]['value']];
         }
         $array = $query->toArray();
         $mostRecent = end($array);
@@ -57,10 +60,12 @@ class Swatch extends Model
     public function hexes()
     {
         $query = $this->hex()->select('block_id', 'value', 'hex.id')->orderBy('hex.created_at', 'desc')->getResults();
+        $blocks = array();
         foreach($query->groupBy('block_id')->toArray() as $key => $value)
         {
-            $data['blocks'][] = ['id' => $key, 'value' => $value[0]['value']];
+            $blocks[$key] = ['id' => $key, 'value' => $value[0]['value']];
         }
+        $data['blocks'] = array_values($blocks);
         return $data;
     }
     public function lock()
@@ -76,8 +81,32 @@ class Swatch extends Model
     }
 
     public function addBlock() {
+        if ($this->lock)
+            return false;
         $block = new Block;
         $block->swatch_id = $this->id;
+        $block->init();
         $block->save();
+    }
+
+    public function updateBlock( $slug, $blockid, $value ) {
+        if ($this->lock)
+            return false;
+        $blocks = Block::find($blockid);
+        $blocks = $this->blocks()->where('id', $blockid);
+
+        if( $blocks->count() == 0 )
+            return false;
+
+        $block = $blocks->first();
+
+        if( alphaID($block->swatch_id) != $slug )
+            return false;
+
+        return $block->iterate($value);
+    }
+
+    public function deleteBlock( $slug, $blockid ) {
+        $this->updateBlock($slug, $blockid, '');
     }
 }

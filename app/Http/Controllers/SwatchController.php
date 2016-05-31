@@ -32,6 +32,7 @@ class SwatchController extends Controller
     {
         //make our page
         $swatch = new Swatch;
+        $swatch->init();
         $swatch->save();
         //return array_merge($swatch->values(),["id" => alphaID($swatch->id)]);
         return redirect('hex/' . alphaID($swatch->id));
@@ -59,6 +60,8 @@ class SwatchController extends Controller
         $swatch = Swatch::find(alphaID($id, true));
         if($swatch)
             return $swatch->values();
+
+
     }
 
     /**
@@ -144,9 +147,23 @@ class SwatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update( Request $request )
     {
-        //
+        $swatch = Swatch::find(alphaID($request->input('slug'), true));
+        $swatch->updateBlock($request->input('slug'),$request->input('block'),$request->input('value'));
+    }
+
+    /**
+     * Soft Delete the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete( Request $request )
+    {
+        $swatch = Swatch::find(alphaID($request->input('slug'), true));
+        $swatch->deleteBlock($request->input('slug'),$request->input('block'));
     }
 
     /**

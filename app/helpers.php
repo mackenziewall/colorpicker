@@ -90,7 +90,6 @@ function alphaID($in, $to_num = false, $pad_up = false, $passKey = null)
 function colorNamer($color)
 {
 
-    return $color;
     $colors = array(
     "cloudy blue" => array(172, 194, 217),
     "dark pastel green" => array(86, 174, 87),
@@ -107,20 +106,20 @@ function colorNamer($color)
     "dark grass green" => array(56, 128, 4),
     "dusty teal" => array(76, 144, 133),
     "grey teal" => array(94, 155, 138),
-    "macaroni and cheese" => array(239, 180, 53),
+    "mac n cheese" => array(239, 180, 53),
     "pinkish tan" => array(217, 155, 130),
     "spruce" => array(10, 95, 56),
     "strong blue" => array(12, 6, 247),
     "toxic green" => array(97, 222, 42),
     "windows blue" => array(55, 120, 191),
-    "blue blue" => array(34, 66, 199),
+    "vivid blue" => array(34, 66, 199),
     "blue with a hint of purple" => array(83, 60, 198),
     "booger" => array(155, 181, 60),
     "bright sea green" => array(5, 255, 166),
     "dark green blue" => array(31, 99, 87),
     "deep turquoise" => array(1, 115, 116),
     "green teal" => array(12, 181, 119),
-    "strong pink" => array(255, 7, 137),
+    "strong independent female character pink" => array(255, 7, 137),
     "bland" => array(175, 168, 139),
     "deep aqua" => array(8, 120, 127),
     "lavender pink" => array(221, 133, 215),
@@ -1059,9 +1058,7 @@ function colorNamer($color)
             $mincolor = $k;
         }
     }
-
-
-    return $color;
+    return str_replace(" ","-",($mincolor));
 }
 
 function html2rgb($color)
@@ -1088,4 +1085,18 @@ function distancel2(array $color1, array $color2) {
     return sqrt(pow($color1[0] - $color2[0], 2) +
         pow($color1[1] - $color2[1], 2) +
         pow($color1[2] - $color2[2], 2));
+}
+
+function uniqueKeyArrayPush($array, $element, $increment = 0) {
+    foreach($element as $key => $value) {
+        $key = $key . ($increment > 0 ? $increment : '' );
+        if(!isset($array[$key])) {
+            $array[$key] = $value;
+        }
+        else {
+            $increment++;
+            $array = uniqueKeyArrayPush($array, $element, $increment);
+        }
+    }
+    return $array;
 }

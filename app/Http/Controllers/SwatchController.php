@@ -33,7 +33,8 @@ class SwatchController extends Controller
         //make our page
         $swatch = new Swatch;
         $swatch->save();
-        return array_merge($swatch->values(),["id" => alphaID($swatch->id)]);
+        //return array_merge($swatch->values(),["id" => alphaID($swatch->id)]);
+        return redirect('hex/' . alphaID($swatch->id));
     }
 
     /**
@@ -56,6 +57,20 @@ class SwatchController extends Controller
     public function show($id)
     {
         $swatch = Swatch::find(alphaID($id, true));
+        if($swatch)
+            return $swatch->values();
+    }
+
+    /**
+     * Add Block
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addBlock($id)
+    {
+        $swatch = Swatch::find(alphaID($id, true));
+        $swatch->addBlock();
         return $swatch->values();
     }
 
@@ -68,13 +83,34 @@ class SwatchController extends Controller
     public function check($id, $status)
     {
         $swatch = Swatch::find(alphaID($id, true));
-
         if($swatch->status() == $status)
             return ["status" => $swatch->status()];
-
         return $swatch->values();
     }
 
+    /**
+     * SASS Export
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function sassExport($id)
+    {
+        $swatch = Swatch::find(alphaID($id, true));
+        $values = $swatch->values();
+        $sass   = array();
+        foreach($values["blocks"] as $block)
+        {
+            $blocks[] = $block['value'];
+        }
+        $blocks = array_unique( $blocks );
+        foreach($blocks as $block)
+        {
+            $name = colorNamer($block);
+            $sass = uniqueKeyArrayPush($sass, [$name => '$' . $name . ": #" . $block . ';']);
+        }
+        return ["sass" => implode("\n" ,$sass)];
+    }
     /**
      * Show the form for editing the specified resource.
      *

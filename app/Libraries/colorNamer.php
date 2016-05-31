@@ -1,20 +1,18 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| alphaID()
+| colorNamer()
 |--------------------------------------------------------------------------
 |  
-| Converts number to slug. 
+| Converts hex to variable name
 |
 |
-| http://stackoverflow.com/questions/5422065/php-random-url-names-short-url
+| http://stackoverflow.com/questions/2993970/function-that-converts-hex-color-values-to-an-approximate-color-name
 */
 namespace App\Library;
 
 function colorNamer($color)
 {
-
-    return $color;
     $colors = array(
     "cloudy blue" => array(172, 194, 217),
     "dark pastel green" => array(86, 174, 87),
@@ -984,8 +982,7 @@ function colorNamer($color)
         }
     }
 
-
-    return $color;
+    return $mincolor;
 }
 
 function html2rgb($color)

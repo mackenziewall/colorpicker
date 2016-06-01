@@ -65,6 +65,7 @@ class Swatch extends Model
             if(!empty($value[0]['value']))
                 $data['blocks'][$key] = ['id' => $key, 'value' => $value[0]['value']];
         }
+        ksort( $data['blocks']);
         $array = $query->toArray();
         $mostRecent = end($array);
         $data['status'] = $mostRecent['id'];

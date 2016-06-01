@@ -126,8 +126,8 @@ var app = angular.module("colorpicker", [])
 				  url: '/ajax/fork',
         	data: { 'slug' : navigation.slug }
 				}).then(function successCallback(response) {
-						//$window.location.href = url_array[0] + "/hex/" + response.data.slug;
-						console.log( url_array[0] + "/hex/" + response.data.slug );
+						if(response.data.slug && response.data.slug.length)
+							$window.location.href = url_array[0] + "/hex/" + response.data.slug;
 				  }, function errorCallback(response) {});
 			};
 			this.refresh = function (){ 

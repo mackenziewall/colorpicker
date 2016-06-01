@@ -49,7 +49,8 @@ class Swatch extends Model
         $query = $this->hex()->select('block_id', 'value', 'hex.id')->orderBy('hex.created_at', 'desc')->getResults();
         foreach($query->groupBy('block_id')->toArray() as $key => $value)
         {
-            $data['blocks'][$key] = ['id' => $key, 'value' => $value[0]['value']];
+            if(!empty($value[0]['value']))
+                $data['blocks'][$key] = ['id' => $key, 'value' => $value[0]['value']];
         }
         $array = $query->toArray();
         $mostRecent = end($array);

@@ -124,10 +124,12 @@ class SwatchController extends Controller
         $blocks = array_unique( $blocks );
         foreach($blocks as $block)
         {
+            if(empty($block))
+                continue;
             $name = colorNamer($block);
             $sass = uniqueKeyArrayPush($sass, [$name => '$' . $name . ": #" . $block . ';']);
         }
-        return ["sass" => implode("\n" ,$sass)];
+        return ["sass" => implode(" \r\n" ,$sass)];
     }
     /**
      * Show the form for editing the specified resource.

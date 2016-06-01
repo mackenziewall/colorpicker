@@ -38,10 +38,7 @@ body{padding-top:60px;background-color:#EEE;}
     background-color:transparent;
     border:none;
     text-align:center;}
-
 .color-input .picker{width:50px;height:30px;float:left;}
-
-
 .swatch{
     display:inline-block;
     position:relative;
@@ -64,6 +61,16 @@ body{padding-top:60px;background-color:#EEE;}
 #b3{background-color:#872;}
 .addnew i, .delete i {font-size:20px;}
 .startblock, .endblock {background-color:#FFF;}
+.sneaky{
+  width:210px;
+  height:17px;
+  border:none;
+  bottom:0;
+  right:0;
+  display:none;
+}
+.nav li:hover .sneaky{display:inline-block;}
+
 @media (min-width:768px){
     .addnew{position:absolute;top:42%;right:4px;}
     .startblock, .endblock {height:150px;width:25px;}

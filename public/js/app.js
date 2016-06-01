@@ -28,11 +28,16 @@ var app = angular.module("colorpicker", [])
 			var requesthttp = 'ajax/fetch/' + url[1];
 			swatch.slug = url[1];
 		}
-	  $scope.layoutDone = function() { console.log([swatch]);
+	  $scope.layoutDone = function() { 
 	      //This is where we attach listeners to the elements in the ng-repeat loop
 	      if(!swatch.lock)
 	      	$timeout(function() { $(".picker").spectrum({showSelectionPalette: true, clickoutFiresChange: true, preferredFormat: "hex", showInitial: true, showInput: true}); }, 0); // wait...
 	  }
+		this.singleblock = function (){ 
+			if(_.keys(swatch.blocks).length > 1)
+				return false;
+			return true;
+		};
 		this.addblock = function (){ 
 			$http({
 			  method: 'GET',
@@ -40,9 +45,7 @@ var app = angular.module("colorpicker", [])
 			}).then(function successCallback(response) {
 				    swatch.status = response.data.status;
 				    swatch.blocks = response.data.blocks;
-			  }, function errorCallback(response) {
-			  	//
-			  });
+			  }, function errorCallback(response) {});
 		};
 		this.deleteblock = function ( blockid ){ 
 			$http({
@@ -51,10 +54,8 @@ var app = angular.module("colorpicker", [])
         data: { 'slug' : swatch.slug, 'block': blockid }
 			}).then(function successCallback(response) {
 				    swatch.status = response.data.status;
-				    swatch.blocks = response.data.blocks;
-			  }, function errorCallback(response) {
-			  	//
-			  });
+						delete swatch.blocks[blockid];
+			  }, function errorCallback(response) {});
 		};
 		this.changeblock = function ( blockid, value ){ 
 			$http({
@@ -63,9 +64,7 @@ var app = angular.module("colorpicker", [])
         data: { 'slug' : swatch.slug, 'block': blockid, 'value': value }
 			}).then(function successCallback(response) {
 					swatch.update();
-			  }, function errorCallback(response) {
-			  	//
-			  });
+			  }, function errorCallback(response) {});
 		};
 	  this.update = function(){
 			$http({
@@ -78,21 +77,22 @@ var app = angular.module("colorpicker", [])
 				    swatch.id = response.data.id;
 				    swatch.lock = response.data.lock;
 				  }
-			  }, function errorCallback(response) {
-			  	//
-			  });
+			  }, function errorCallback(response) {});
 		};
 		this.update();
+		var clipboard = new Clipboard('.clippy');
+		clipboard.on('success', function(e) {});
 		// $interval(function(){
 		// 	swatch.update();
 		// },5000);
 }]);
 
 	app.controller('navigationController', ['$http', '$location', function( $http, $location ) {
-	  	var url = $location.absUrl().split("/hex/");
-	  	var slug;
-			if( url.length == 2 )
-				slug = url[1];
+			var navigation = this;
+	  	var url_array = $location.absUrl().split("/hex/");
+			if( url_array.length == 2 )
+				navigation.slug = url_array[1];
+			navigation.url = $location.absUrl();
 
 			this.fork = function (){ 
 				alert('fork');
@@ -104,19 +104,29 @@ var app = angular.module("colorpicker", [])
 				$http({
 				  method: 'POST',
 				  url: '/ajax/lock',
-        	data: { 'slug' : slug }
+        	data: { 'slug' : navigation.slug }
 				}).then(function successCallback(response) {
 						//
-				  }, function errorCallback(response) {
-				  	//
-				  });
+				  }, function errorCallback(response) {});
 			};
 			this.sass = function (){ 
-				alert('sass');
+				$http({
+				  method: 'GET',
+				  url: 'ajax/sass/' + navigation.slug
+				}).then(function successCallback(response) {
+				    navigation.sass = response.data.sass;
+				  }, function errorCallback(response) {});
+
+				navigation.url = $location.absUrl();
 			};
+			this.sass();
 			this.share = function (){ 
-				alert('share');
+				alert(url);
 			};
+			var clipboard = new Clipboard('.clippy');
+			clipboard.on('success', function(e) {
+			  
+			});
 	}]);
 
 	app.service('swatchService', function() {

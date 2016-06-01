@@ -153,7 +153,10 @@ var app = angular.module("colorpicker", [])
 
 				navigation.url = $location.absUrl();
 			};
-			this.sass();
+	    angular.element(document).ready(function () {
+	        navigation.sass();
+	    });
+			
 			var clipboard = new Clipboard('.clippy');
 			clipboard.on('success', function(e) {
 			  

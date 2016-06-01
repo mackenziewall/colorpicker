@@ -130,7 +130,7 @@ function colorNamer($color)
     "deep lilac" => array(150, 110, 189),
     "desert" => array(204, 173, 96),
     "dusty lavender" => array(172, 134, 168),
-    "purpley grey" => array(148, 126, 148),
+    "purply grey" => array(148, 126, 148),
     "purply" => array(152, 63, 178),
     "candy pink" => array(255, 99, 233),
     "light pastel green" => array(178, 251, 165),

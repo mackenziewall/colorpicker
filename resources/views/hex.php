@@ -19,7 +19,7 @@
     </head>
     <body role="document" ng-app="colorpicker">
         <!-- Fixed navbar -->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default navbar-brand">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

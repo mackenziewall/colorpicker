@@ -53,7 +53,7 @@ body{padding-top:60px;background-color:#EEE;}
 }
 .delete:hover{color:#C00;-webkit-text-fill-color: #C00;}
 .delete {font-size:26px; padding-bottom:12px; box-shadow: none;color:red; border:none;position:absolute;top:0;right:10px;
-    -webkit-text-fill-color: red; /* Will override color (regardless of order) */
+    -webkit-text-fill-color: red; /* Will override color (regardless of order) */ 
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #000;}
 #b1{background-color:#F00;}
@@ -62,8 +62,9 @@ body{padding-top:60px;background-color:#EEE;}
 .addnew i, .delete i {font-size:20px;}
 .startblock, .endblock {background-color:#FFF;}
 .sneaky{
-  width:210px;
-  height:17px;
+  width:120px;
+  height:10px;
+  font-size:8px;
   border:none;
   bottom:0;
   right:0;

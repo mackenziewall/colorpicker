@@ -111,7 +111,7 @@ var app = angular.module("colorpicker", [])
 		},5000);
 }]);
 
-	app.controller('navigationController', ['$http', '$location', '$scope', 'SwatchData', function( $http, $location, $scope, SwatchData ) {
+	app.controller('navigationController', ['$http', '$location', '$scope', '$window', 'SwatchData', function( $http, $location, $scope, $window, SwatchData ) {
 			$scope.SwatchData = SwatchData;
 			var swatch = SwatchData;
 			var navigation = this;
@@ -126,7 +126,8 @@ var app = angular.module("colorpicker", [])
 				  url: '/ajax/fork',
         	data: { 'slug' : navigation.slug }
 				}).then(function successCallback(response) {
-						console.log(url_array[0] + "/hex/" + response.data.slug);
+						//$window.location.href = url_array[0] + "/hex/" + response.data.slug;
+						console.log( url_array[0] + "/hex/" + response.data.slug );
 				  }, function errorCallback(response) {});
 			};
 			this.refresh = function (){ 

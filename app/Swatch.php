@@ -19,18 +19,31 @@ class Swatch extends Model
         parent::__construct($attributes); // Eloquent
 
     }
-    public function init()  {
+    public function init( $colors = null )  {
         $this->save();
 
         //elements
         $block = array();
 
-        foreach(range(1,$this->initial_blocks) as $index)
+        if(is_array($colors))
         {
-            $block[$index] = new Block;
-            $block[$index]->init();
-            $block[$index]->swatch_id = $this->id;
-            $block[$index]->save();
+            foreach($colors as $key => $value)
+            {
+                $block[$key] = new Block;
+                $block[$key]->init($value["value"]);
+                $block[$key]->swatch_id = $this->id;
+                $block[$key]->save();
+            }
+        }
+        else
+        {
+            foreach(range(1,$this->initial_blocks) as $index)
+            {
+                $block[$index] = new Block;
+                $block[$index]->init();
+                $block[$index]->swatch_id = $this->id;
+                $block[$index]->save();
+            }
         }
     }
 

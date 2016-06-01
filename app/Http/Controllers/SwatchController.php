@@ -65,15 +65,13 @@ class SwatchController extends Controller
     public function fork(Request $request)
     {
         $old_swatch = Swatch::find(alphaID($request->input('slug'), true));
-
-        $new_swatch = new Swatch;
         $values = $old_swatch->values();
-        foreach($values['blocks'] as $color)
-        {var_dump(__FILE__.__LINE__);exit;
-            $new_swatch->addBlock($color);
-        }
-        var_dump(__FILE__.__LINE__);exit;
-        return ['slug' => alphaID($swatch->id)];
+
+        $new_swatch = new Swatch();
+        $new_swatch->init($values['blocks']);
+        $new_swatch->save();
+
+        return ['slug' => alphaID($new_swatch->id)];
         
     }
 

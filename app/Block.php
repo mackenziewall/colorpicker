@@ -17,15 +17,18 @@ class Block extends Model
     {
         parent::__construct($attributes); // Eloquent
     }
-    public function init()  
+    public function init( $color = '' )  
     {
         $this->save();
-
-        $faker = Faker::create();
+        if( empty($color) ) {
+            $faker = Faker::create();
+            $color = substr($faker->hexcolor,1,6);
+        }
         $hex = new Hex;
         $hex->block_id = $this->id;
-        $hex->value = substr($faker->hexcolor,1,6);
+        $hex->value = $color;
         $hex->save();
+        return ['status' => $hex->id];
     }
     /**
      * A Block had many hex entries.

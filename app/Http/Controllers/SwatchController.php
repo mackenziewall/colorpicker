@@ -60,8 +60,21 @@ class SwatchController extends Controller
         $swatch = Swatch::find(alphaID($id, true));
         if($swatch)
             return $swatch->values();
+    }
 
+    public function fork(Request $request)
+    {
+        $old_swatch = Swatch::find(alphaID($request->input('slug'), true));
 
+        $new_swatch = new Swatch;
+        $values = $old_swatch->values();
+        foreach($values['blocks'] as $color)
+        {var_dump(__FILE__.__LINE__);exit;
+            $new_swatch->addBlock($color);
+        }
+        var_dump(__FILE__.__LINE__);exit;
+        return ['slug' => alphaID($swatch->id)];
+        
     }
 
     /**
@@ -70,11 +83,10 @@ class SwatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function addBlock($id)
+    public function addBlock(Request $request)
     {
-        $swatch = Swatch::find(alphaID($id, true));
-        $swatch->addBlock();
-        return $swatch->values();
+        $swatch = Swatch::find(alphaID($request->input('slug'), true));
+        return $swatch->addBlock($request->input('value'));
     }
 
     /**

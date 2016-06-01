@@ -44,20 +44,20 @@
           </div>
         </nav>
         <div class="container theme-showcase" ng-controller="SwatchController as swatch">
-            <div class="swatch" ng-show="swatch.blocks" >
+            <div class="swatch" ng-show="SwatchData.blocks" >
                 <div class="startblock block"></div>
                 <div class="blockbucket">
-                    <span ng-repeat="block in swatch.blocks" repeat-done="layoutDone()">
+                    <span ng-repeat="block in SwatchData.blocks" repeat-done="layoutDone()">
                         <div ng-hide="block.value == ''" class="colorblock block" id="block{{block.id}}" style="background-color:{{block.value | hex}};">
                             <span class="color-input">
-                                <input ng-hide="swatch.lock" type="text" ng-model="block.value" ng-change="swatch.changeblock(block.id,block.value)" class="picker" name="picker-{{block.id}}" value="{{block.value | hex}}" /> 
+                                <input ng-hide="SwatchData.lock" type="text" ng-model="block.value" ng-change="SwatchData.changeblock(block.id,block.value)" class="picker" name="picker-{{block.id}}" value="{{block.value | hex}}" /> 
                                 <input type="text" onClick="this.select();" class="blabel clippy pointer" title="copy to clipboard" onClick="this.select();" data-clipboard-target="#clip-b{{block.id}}" id="clip-b{{block.id}}" name="value-{{block.id}}" value="{{block.value | hex}}" readonly/> 
                             </span>
-                            <a ng-hide="swatch.lock || swatch.singleblock()" ng-click="swatch.deleteblock(block.id)" class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a ng-hide="SwatchData.lock || SwatchData.singleblock()" ng-click="SwatchData.deleteblock(block.id)" class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </div>
                     </span>
                 </div>
-                <div class="endblock block"><a type='button' ng-hide="swatch.lock" ng-click="swatch.addblock()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                <div class="endblock block"><a type='button' ng-hide="SwatchData.lock" ng-click="SwatchData.addblock()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
             </div>
         </div>
     </body>

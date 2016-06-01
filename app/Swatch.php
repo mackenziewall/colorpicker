@@ -81,13 +81,14 @@ class Swatch extends Model
         return $query->toArray()[0]['id'];
     }
 
-    public function addBlock() {
+    public function addBlock( $color = null ) {
         if ($this->lock)
             return false;
         $block = new Block;
         $block->swatch_id = $this->id;
-        $block->init();
+        $data = $block->init( $color );
         $block->save();
+        return array_merge([ 'id' => $block->id], $data);
     }
 
     public function updateBlock( $slug, $blockid, $value ) {

@@ -19,8 +19,9 @@ Route::get('hex/{id}', function () {
 });
 
 Route::get('ajax/fetch/{id}', 'SwatchController@show');
-Route::get('ajax/add/{id}', 'SwatchController@addBlock');
 Route::get('ajax/sass/{id}', 'SwatchController@sassExport');
+Route::post('ajax/add', 'SwatchController@addBlock');
+Route::post('ajax/fork', 'SwatchController@fork');
 Route::post('ajax/lock', 'SwatchController@lock');
 Route::post('ajax/update', 'SwatchController@update');
 Route::post('ajax/delete', 'SwatchController@delete');

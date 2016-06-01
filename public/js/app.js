@@ -11,6 +11,8 @@ var app = angular.module("colorpicker", [])
 	  // We have the ability to support multiple other parameters that can be passed into the filter optionally
 	  return function(input) {
 	    // Do filter work here
+	    if(!input)
+	    	return input;
 	    var output = '';
 	    if(input.charAt(0) != '#')
 	    	output += '#';
@@ -18,76 +20,100 @@ var app = angular.module("colorpicker", [])
 	    return output;
 	  }
 	});
-	app.controller ('SwatchController', ['$http', '$scope', '$timeout', '$location', '$interval', function ($http, $scope, $timeout, $location, $interval ){
-		var swatch = this;
+	app.factory('SwatchData', function() {
+	  return {};
+	});
+	app.controller ('SwatchController', ['$http', '$scope', '$timeout', '$location', '$interval', 'SwatchData', function ($http, $scope, $timeout, $location, $interval, SwatchData ){
+		$scope.SwatchData = SwatchData;
+		//var swatch = SwatchData;
+		var self = this;
 		var status;
   	var url = $location.absUrl().split("/hex/");
 		if( url.length == 1 )
 			window.location = '/create';
 		else if( url.length > 1 && url[1].length ){
 			var requesthttp = 'ajax/fetch/' + url[1];
-			swatch.slug = url[1];
+			$scope.SwatchData.slug = url[1];
 		}
 	  $scope.layoutDone = function() { 
 	      //This is where we attach listeners to the elements in the ng-repeat loop
-	      if(!swatch.lock)
+	      if(!$scope.SwatchData.lock)
 	      	$timeout(function() { $(".picker").spectrum({showSelectionPalette: true, clickoutFiresChange: true, preferredFormat: "hex", showInitial: true, showInput: true}); }, 0); // wait...
 	  }
-		this.singleblock = function (){ 
-			if(_.keys(swatch.blocks).length > 1)
+		$scope.SwatchData.singleblock = function (){ 
+			if(_.keys($scope.SwatchData.blocks).length > 1)
 				return false;
 			return true;
 		};
-		this.addblock = function (){ 
+		this.singleblock = function(){return $scope.SwatchData.singleblock();};
+		this.addblock = function(){return $scope.SwatchData.addblock();};
+		this.deleteblock = function(blockid){return $scope.SwatchData.deleteblock();};
+		this.changeblock = function(blockid, value){return $scope.SwatchData.changeblock();};
+		this.update = function(){return $scope.SwatchData.update();};
+
+		$scope.SwatchData.addblock = function (){ 
+
+	  	var color = Math.random().toString(16).slice(2, 8);
+	  	$scope.SwatchData.blocks[color] = {value: color};
+
 			$http({
-			  method: 'GET',
-			  url: 'ajax/add/'+ swatch.slug
+			  method: 'POST',
+			  url: 'ajax/add',
+        data: { 'slug' : $scope.SwatchData.slug, 'value': color }
 			}).then(function successCallback(response) {
-				    swatch.status = response.data.status;
-				    swatch.blocks = response.data.blocks;
-			  }, function errorCallback(response) {});
+						// delete $scope.SwatchData.blocks[color];
+				  //   $scope.SwatchData.blocks[response.data.id] = {id:response.data.id,color:color};
+        $scope.SwatchData.blocks[response.data.id] = $scope.SwatchData.blocks[color];
+				$scope.SwatchData.blocks[response.data.id].id = response.data.id;
+        delete $scope.SwatchData.blocks[color];
+
+				    $scope.SwatchData.status = response.data.status;
+			  }, function errorCallback(response) {$scope.SwatchData.blocks.pop(); alert('Connection Lost.');});
 		};
-		this.deleteblock = function ( blockid ){ 
+		$scope.SwatchData.deleteblock = function ( blockid ){ 
 			$http({
 			  method: 'POST',
 			  url: 'ajax/delete',
-        data: { 'slug' : swatch.slug, 'block': blockid }
+        data: { 'slug' : $scope.SwatchData.slug, 'block': blockid }
 			}).then(function successCallback(response) {
-				    swatch.status = response.data.status;
-						delete swatch.blocks[blockid];
+				    $scope.SwatchData.status = response.data.status;
+						delete $scope.SwatchData.blocks[blockid];
 			  }, function errorCallback(response) {});
 		};
-		this.changeblock = function ( blockid, value ){ 
+		$scope.SwatchData.changeblock = function ( blockid, value ){ 
 			$http({
 			  method: 'POST',
 			  url: 'ajax/update',
-        data: { 'slug' : swatch.slug, 'block': blockid, 'value': value }
+        data: { 'slug' : $scope.SwatchData.slug, 'block': blockid, 'value': value }
 			}).then(function successCallback(response) {
-					swatch.update();
-			  }, function errorCallback(response) {});
+					$scope.SwatchData.update();
+			  }, function errorCallback(response) {alert('Connection Lost.');});
 		};
-	  this.update = function(){
+	  $scope.SwatchData.update = function(){
 			$http({
 			  method: 'GET',
 			  url: requesthttp
 			}).then(function successCallback(response) {
-					if(swatch.status == undefined || swatch.status < response.data.status) {
-				    swatch.status = response.data.status;
-				    swatch.blocks = response.data.blocks;
-				    swatch.id = response.data.id;
-				    swatch.lock = response.data.lock;
+					if($scope.SwatchData.status == undefined || $scope.SwatchData.status < response.data.status) {
+				    $scope.SwatchData.status = response.data.status;
+				    $scope.SwatchData.blocks = response.data.blocks;
+				    $scope.SwatchData.id = response.data.id;
+				    $scope.SwatchData.lock = response.data.lock;
 				  }
 			  }, function errorCallback(response) {});
 		};
-		this.update();
+		$scope.SwatchData.update();
 		var clipboard = new Clipboard('.clippy');
 		clipboard.on('success', function(e) {});
-		// $interval(function(){
-		// 	swatch.update();
-		// },5000);
+		$interval(function(){
+			if( vis() && prod )
+				$scope.SwatchData.update();
+		},5000);
 }]);
 
-	app.controller('navigationController', ['$http', '$location', function( $http, $location ) {
+	app.controller('navigationController', ['$http', '$location', '$scope', 'SwatchData', function( $http, $location, $scope, SwatchData ) {
+			$scope.SwatchData = SwatchData;
+			var swatch = SwatchData;
 			var navigation = this;
 	  	var url_array = $location.absUrl().split("/hex/");
 			if( url_array.length == 2 )
@@ -95,10 +121,16 @@ var app = angular.module("colorpicker", [])
 			navigation.url = $location.absUrl();
 
 			this.fork = function (){ 
-				alert('fork');
+				$http({
+				  method: 'POST',
+				  url: '/ajax/fork',
+        	data: { 'slug' : navigation.slug }
+				}).then(function successCallback(response) {
+						console.log(url_array[0] + "/hex/" + response.data.slug);
+				  }, function errorCallback(response) {});
 			};
 			this.refresh = function (){ 
-				alert('refresh');
+				$scope.SwatchData.update();
 			};
 			this.lock = function (){ 
 				$http({
@@ -106,7 +138,8 @@ var app = angular.module("colorpicker", [])
 				  url: '/ajax/lock',
         	data: { 'slug' : navigation.slug }
 				}).then(function successCallback(response) {
-						//
+						$scope.SwatchData.lock = 1;
+						$('.sp-replacer').hide();
 				  }, function errorCallback(response) {});
 			};
 			this.sass = function (){ 
@@ -120,9 +153,6 @@ var app = angular.module("colorpicker", [])
 				navigation.url = $location.absUrl();
 			};
 			this.sass();
-			this.share = function (){ 
-				alert(url);
-			};
 			var clipboard = new Clipboard('.clippy');
 			clipboard.on('success', function(e) {
 			  
@@ -146,3 +176,24 @@ var app = angular.module("colorpicker", [])
   };
 
 });
+
+var prod = false;
+//http://stackoverflow.com/questions/19519535/detect-if-browser-tab-is-active-or-user-has-switched-away
+var vis = (function(){
+    var stateKey, eventKey, keys = {
+        hidden: "visibilitychange",
+        webkitHidden: "webkitvisibilitychange",
+        mozHidden: "mozvisibilitychange",
+        msHidden: "msvisibilitychange"
+    };
+    for (stateKey in keys) {
+        if (stateKey in document) {
+            eventKey = keys[stateKey];
+            break;
+        }
+    }
+    return function(c) {
+        if (c) document.addEventListener(eventKey, c);
+        return !document[stateKey];
+    }
+})();

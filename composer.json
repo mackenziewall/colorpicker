@@ -10,7 +10,8 @@
         "doctrine/dbal": "~2.3",
         "cboden/ratchet": "0.3.*",
         "pusher/pusher-php-server": "^2.4",
-        "fzaninotto/faker": "~1.4"
+        "fzaninotto/faker": "~1.4",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

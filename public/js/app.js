@@ -65,10 +65,10 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			  url: 'ajax/add',
         data: { 'slug' : $scope.SwatchData.slug, 'value': color }
 			}).then(function successCallback(response) {
-        $scope.SwatchData.blocks[response.data.id] = $scope.SwatchData.blocks[color];
+				$scope.SwatchData.blocks[response.data.id] = {};
+        		$scope.SwatchData.blocks[response.data.id].value = color;
 				$scope.SwatchData.blocks[response.data.id].id = response.data.id;
-				console.log([response.data.id]);
-        delete $scope.SwatchData.blocks[color];
+        		delete $scope.SwatchData.blocks[color];
 				$scope.SwatchData.status = response.data.status;
 			  }, function errorCallback(response) {$scope.SwatchData.blocks.pop(); alert('Connection Lost.');});
 		};
@@ -136,7 +136,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			$scope.SwatchData = SwatchData;
 			var swatch = SwatchData;
 			var navigation = this;
-	  	var url_array = $location.absUrl().split("/hex/");
+	  		var url_array = $location.absUrl().split("/hex/");
 			if( url_array.length == 2 )
 				navigation.slug = $scope.SwatchData.slug = url_array[1];
 			navigation.url = $location.absUrl();

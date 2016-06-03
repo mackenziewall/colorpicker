@@ -161,7 +161,8 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				  url: '/ajax/lock',
         	data: { 'slug' : navigation.slug }
 				}).then(function successCallback(response) {
-						$scope.SwatchData.lock = 1;
+						$scope.SwatchData.locked = 1;
+						navigation.locked = 1;
 						$('.sp-replacer').hide();
 				  }, function errorCallback(response) {});
 			};

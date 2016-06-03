@@ -34,7 +34,7 @@
               <ul class="nav navbar-nav">
                 <li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
                 <li><a type='button' ng-click="navigation.refresh()"><i class="fa fa-refresh" aria-hidden="true"></i> <span class="nav-label">Refresh</span></a></li>
-                <li><a type='button' ng-click="navigation.fork()"><i class="fa fa-code-fork" aria-hidden="true"></i> <span class="nav-label">Fork</span></a></li>
+                <li><a type='button' ng-click="navigation.clone()"><i class="fa fa-clone" aria-hidden="true"></i> <span class="nav-label">Clone</span></a></li>
                 <li><a type='button' ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
                 <li><a type='button' class="clippy" title="copy sass variables to clipboard" data-clipboard-target="#clip-sass"><i class="fa fa-align-left" aria-hidden="true"></i> <span class="nav-label">Sass</span> <input id="clip-sass" class="sneaky" value="{{navigation.sass}}" ng-model="navigation.sass" ></a></li>
                 <li><a type='button' class="clippy" title="copy url to clipboard" data-clipboard-target="#clip-share"><i class="fa fa-link" aria-hidden="true"></i> <span class="nav-label">Share </span><input id="clip-share" class="sneaky" value="{{navigation.url}}" ng-model="navigation.url" ></a></li>

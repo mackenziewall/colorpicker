@@ -62,7 +62,7 @@ class SwatchController extends Controller
             return $swatch->values();
     }
 
-    public function fork(Request $request)
+    public function cloneSwatch(Request $request)
     {
         $old_swatch = Swatch::find(alphaID($request->input('slug'), true));
         $values = $old_swatch->values();

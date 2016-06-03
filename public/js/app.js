@@ -120,10 +120,10 @@ var app = angular.module("colorpicker", [])
 				navigation.slug = url_array[1];
 			navigation.url = $location.absUrl();
 
-			this.fork = function (){ 
+			this.clone = function (){ 
 				$http({
 				  method: 'POST',
-				  url: '/ajax/fork',
+				  url: '/ajax/clone',
         	data: { 'slug' : navigation.slug }
 				}).then(function successCallback(response) {
 						if(response.data.slug && response.data.slug.length)
@@ -159,7 +159,9 @@ var app = angular.module("colorpicker", [])
 			
 			var clipboard = new Clipboard('.clippy');
 			clipboard.on('success', function(e) {
-			  
+				console.log('Copied to clipboard!');
+				//$("#" + e.trigger.id).tooltip('Copied!');
+				//e.trigger.tooltip('Copied!');
 			});
 	}]);
 
@@ -201,3 +203,4 @@ var vis = (function(){
         return !document[stateKey];
     }
 })();
+

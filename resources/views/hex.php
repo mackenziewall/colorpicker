@@ -37,7 +37,6 @@
             <div id="navbar" class="navbar-collapse collapse" ng-controller="navigationController as navigation">
               <ul class="nav navbar-nav">
                 <li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
-                <li><a type='button' ng-click="navigation.refresh()"><i class="fa fa-refresh" aria-hidden="true"></i> <span class="nav-label">Refresh</span></a></li>
                 <li><a type='button' ng-click="navigation.clone()"><i class="fa fa-clone" aria-hidden="true"></i> <span class="nav-label">Clone</span></a></li>
                 <li><a type='button' ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
                 <li><a type='button' class="clippy" title="copy sass variables to clipboard" data-clipboard-target="#clip-sass"><i class="fa fa-align-left" aria-hidden="true"></i> <span class="nav-label">Sass</span> <input id="clip-sass" class="sneaky" value="{{navigation.sass}}" ng-model="navigation.sass" ></a></li>

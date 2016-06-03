@@ -26,4 +26,17 @@ Route::post('ajax/lock', 'SwatchController@lock');
 Route::post('ajax/update', 'SwatchController@update');
 Route::post('ajax/delete', 'SwatchController@delete');
 
+Route::any('test', function() {
+	 $options = array(
+    'encrypted' => true
+  );
+  $pusher = new Pusher(
+    '0c38ef7d30a8ee3a1055',
+    'b796f089af27bca288a9',
+    '212946',
+    $options
+  );
 
+  $data['message'] = 'hello world';
+  $pusher->trigger('test_channel', 'my_event', $data);
+});

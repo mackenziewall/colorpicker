@@ -3,19 +3,21 @@
     <head>
         <title>HueHueHue</title>
         <base href="/home.php" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/app.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/app.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <script type="text/javascript" src="/js/underscore-min.js"></script>
         <script type="text/javascript" src="/js/spectrum.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/spectrum.css">
         <script type="text/javascript" src="/js/clipboard.min.js"></script>
-        <script type="text/javascript" src="/js/app.js"></script>
-        <link rel="stylesheet" type="text/css" href="/css/app.css">
+        <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
+        <script type="text/javascript" src="/js/app.pusher.js"></script>
     </head>
     <body role="document" ng-app="colorpicker">
         <!-- Fixed navbar -->

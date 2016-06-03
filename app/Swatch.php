@@ -59,16 +59,17 @@ class Swatch extends Model
 
     public function values()
     {
-        $query = $this->hex()->select('block_id', 'value', 'hex.id')->orderBy('hex.created_at', 'desc')->getResults();
-        foreach($query->groupBy('block_id')->toArray() as $key => $value)
+        $query = $this->blocks();
+        $id = 0;
+        foreach($query->get() as $key => $value)
         {
-            if(!empty($value[0]['value']))
-                $data['blocks'][$key] = ['id' => $key, 'value' => $value[0]['value']];
+            $hex = $value->hex()->get()->last()->toArray();
+            
+            if(!empty($hex['value']))
+                $data['blocks'][$key] = ['id' => $key, 'value' => $hex['value']];
+            $id = max($hex['id'], $id);
         }
         ksort( $data['blocks']);
-        $array = $query->toArray();
-        $mostRecent = end($array);
-        $data['status'] = $mostRecent['id'];
         $data['lock'] = $this->lock;
         return $data;
     }

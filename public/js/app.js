@@ -154,7 +154,7 @@ var app = angular.module("colorpicker", [])
 				navigation.url = $location.absUrl();
 			};
 	    angular.element(document).ready(function () {
-	        navigation.sass();
+	        //navigation.sass();
 	    });
 			
 			var clipboard = new Clipboard('.clippy');
@@ -203,4 +203,3 @@ var vis = (function(){
         return !document[stateKey];
     }
 })();
-

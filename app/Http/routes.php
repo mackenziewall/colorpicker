@@ -38,5 +38,5 @@ Route::any('test', function() {
   );
 
   $data['message'] = 'hello world';
-  $pusher->trigger('test_channel', 'my_event', $data);
+  $pusher->trigger('swatch_update_trigger', 'swatch_update', $data);
 });

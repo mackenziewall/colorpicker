@@ -45,11 +45,6 @@ var app = angular.module("colorpicker", [])
 				return false;
 			return true;
 		};
-		this.singleblock = function(){return $scope.SwatchData.singleblock();};
-		this.addblock = function(){return $scope.SwatchData.addblock();};
-		this.deleteblock = function(blockid){return $scope.SwatchData.deleteblock();};
-		this.changeblock = function(blockid, value){return $scope.SwatchData.changeblock();};
-		this.update = function(){return $scope.SwatchData.update();};
 
 		$scope.SwatchData.addblock = function (){ 
 
@@ -61,13 +56,11 @@ var app = angular.module("colorpicker", [])
 			  url: 'ajax/add',
         data: { 'slug' : $scope.SwatchData.slug, 'value': color }
 			}).then(function successCallback(response) {
-						// delete $scope.SwatchData.blocks[color];
-				  //   $scope.SwatchData.blocks[response.data.id] = {id:response.data.id,color:color};
         $scope.SwatchData.blocks[response.data.id] = $scope.SwatchData.blocks[color];
 				$scope.SwatchData.blocks[response.data.id].id = response.data.id;
+				console.log([response.data.id]);
         delete $scope.SwatchData.blocks[color];
-
-				    $scope.SwatchData.status = response.data.status;
+				$scope.SwatchData.status = response.data.status;
 			  }, function errorCallback(response) {$scope.SwatchData.blocks.pop(); alert('Connection Lost.');});
 		};
 		$scope.SwatchData.deleteblock = function ( blockid ){ 

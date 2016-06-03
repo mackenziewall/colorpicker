@@ -66,7 +66,7 @@ class Swatch extends Model
             $hex = $value->hex()->get()->last()->toArray();
             
             if(!empty($hex['value']))
-                $data['blocks'][$key] = ['id' => $key, 'value' => $hex['value']];
+                $data['blocks'][$key] = ['id' => $value->id, 'value' => $hex['value']];
             $id = max($hex['id'], $id);
         }
         ksort( $data['blocks']);

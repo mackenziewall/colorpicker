@@ -41,6 +41,20 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+
+/*
+|--------------------------------------------------------------------------
+| Environment
+|--------------------------------------------------------------------------
+|
+*/
+// var_dump(__DIR__.'/environment.php');
+// require __DIR__.'/environment.php';
+// $env = $app->detectEnvironment(function(){
+// 	return getenv('APP_ENV') ?: 'local';
+// });
+
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

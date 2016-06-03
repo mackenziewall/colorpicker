@@ -36,9 +36,14 @@ return [
     ],
 
     'pusher' => [
-        'app_id' => env('PUSHER_ID'),
-        'key' => env('PUSHER_KEY'),
-        'secret' => env('PUSHER_SECRET'),
+        'app_id' => getenv('PUSHER_ID'),
+        'key' => getenv('PUSHER_KEY'),
+        'secret' => getenv('PUSHER_SECRET'),
+    ],
+
+    'database' => [
+        'app_id' => getenv('PUSHER_ID'),
+        'key' => getenv('PUSHER_KEY')
     ],
 
 ];

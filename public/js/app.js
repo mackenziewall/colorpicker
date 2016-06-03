@@ -1,12 +1,12 @@
-var app = angular.module("colorpicker", [])
+var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 	.directive('repeatDone', function() {
 		return function(scope, element, attrs) {
 			if (scope.$last) { // all are rendered
 				scope.$eval(attrs.repeatDone);
 			}
 		}
-	});
-	app.filter('hex', function() {
+	})
+	.filter('hex', function() {
 	  // In the return function, we must pass in a single parameter which will be the data we will work on.
 	  // We have the ability to support multiple other parameters that can be passed into the filter optionally
 	  return function(input) {
@@ -19,22 +19,31 @@ var app = angular.module("colorpicker", [])
 	    output += input;
 	    return output;
 	  }
-	});
-	app.factory('SwatchData', function() {
+	})
+	.factory('SwatchData', [function() {
 	  return {};
-	});
-	app.controller ('SwatchController', ['$http', '$scope', '$timeout', '$location', '$interval', 'SwatchData', function ($http, $scope, $timeout, $location, $interval, SwatchData ){
+	}])
+	.config(['$routeProvider', '$locationProvider', '$compileProvider', 'PusherServiceProvider',
+	  function($routeProvider, $locationProvider, $compileProvider, PusherServiceProvider) {
+	    PusherServiceProvider
+	      .setToken('c21f8f702f50baff6a10')
+	      .setOptions({});
+	  }
+	])
+
+	.controller('SwatchController', ['$http', '$scope', '$timeout', '$window', 'SwatchData', 'Pusher', //'pusherProvider', 
+		function ($http, $scope, $timeout, $window, SwatchData, Pusher ) {
+
+
+
+
 		$scope.SwatchData = SwatchData;
 		//var swatch = SwatchData;
 		var self = this;
 		var status;
-  	var url = $location.absUrl().split("/hex/");
-		if( url.length == 1 )
-			window.location = '/create';
-		else if( url.length > 1 && url[1].length ){
-			var requesthttp = 'ajax/fetch/' + url[1];
-			$scope.SwatchData.slug = url[1];
-		}
+		var url = $scope.SwatchData.url;
+		var requesthttp = 'ajax/fetch/' + $scope.SwatchData.slug;
+
 	  $scope.layoutDone = function() { 
 	      //This is where we attach listeners to the elements in the ng-repeat loop
 	      if(!$scope.SwatchData.lock)
@@ -96,22 +105,42 @@ var app = angular.module("colorpicker", [])
 			  }, function errorCallback(response) {});
 		};
 		$scope.SwatchData.update();
+		$scope.$on('global_event', function (angularEvent, pusherEventData) {
+		    $scope.SwatchData.update();
+		});
+
 		var clipboard = new Clipboard('.clippy');
 		clipboard.on('success', function(e) {});
-		$interval(function(){
-			if( vis() && prod )
-				$scope.SwatchData.update();
-		},5000);
-}]);
 
-	app.controller('navigationController', ['$http', '$location', '$scope', '$window', 'SwatchData', function( $http, $location, $scope, $window, SwatchData ) {
+
+	$scope.callbackNotifications = 0;
+	$scope.callbackNotification = '';
+
+	$scope.eventNotifications = 0;
+	$scope.eventNotification = '';
+
+
+	Pusher.subscribe('swatch_update_trigger_'+$scope.SwatchData.slug, 'update', function (item) {
+		console.log('update received');
+		$scope.SwatchData.update();
+	});
+	  $scope.$on('$destroy', function () {
+	    Pusher.unsubscribe('swatch_update_trigger_'+$scope.SwatchData.slug);
+	  });
+
+
+
+
+}])
+	.controller('navigationController', ['$http', '$location', '$scope', '$window', 'SwatchData', function( $http, $location, $scope, $window, SwatchData ) {
 			$scope.SwatchData = SwatchData;
 			var swatch = SwatchData;
 			var navigation = this;
 	  	var url_array = $location.absUrl().split("/hex/");
 			if( url_array.length == 2 )
-				navigation.slug = url_array[1];
+				navigation.slug = $scope.SwatchData.slug = url_array[1];
 			navigation.url = $location.absUrl();
+			$scope.SwatchData.url = navigation.url;
 
 			this.clone = function (){ 
 				$http({
@@ -146,9 +175,6 @@ var app = angular.module("colorpicker", [])
 
 				navigation.url = $location.absUrl();
 			};
-	    angular.element(document).ready(function () {
-	        //navigation.sass();
-	    });
 			
 			var clipboard = new Clipboard('.clippy');
 			clipboard.on('success', function(e) {

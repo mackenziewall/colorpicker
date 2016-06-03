@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Swatch;
 use App\Block;
-
+use App;
 use Faker\Factory as Faker;
 
 class SwatchController extends Controller
@@ -84,7 +84,9 @@ class SwatchController extends Controller
     public function addBlock(Request $request)
     {
         $swatch = Swatch::find(alphaID($request->input('slug'), true));
-        return $swatch->addBlock($request->input('value'));
+        $result = $swatch->addBlock($request->input('value'));
+        App::make('Pusher')->trigger('swatch_update_trigger_' . $request->input('slug'), 'update', ['message' => 'update transmitted']);
+        return $result;
     }
 
     /**
@@ -162,7 +164,9 @@ class SwatchController extends Controller
     public function update( Request $request )
     {
         $swatch = Swatch::find(alphaID($request->input('slug'), true));
-        $swatch->updateBlock($request->input('slug'),$request->input('block'),$request->input('value'));
+        $result = $swatch->updateBlock($request->input('slug'),$request->input('block'),$request->input('value'));
+        App::make('Pusher')->trigger('swatch_update_trigger_' . $request->input('slug'), 'update', ['message' => 'update transmitted']);
+        return $result;
     }
 
     /**
@@ -175,7 +179,9 @@ class SwatchController extends Controller
     public function delete( Request $request )
     {
         $swatch = Swatch::find(alphaID($request->input('slug'), true));
-        $swatch->deleteBlock($request->input('slug'),$request->input('block'));
+        $result = $swatch->deleteBlock($request->input('slug'),$request->input('block'));
+        App::make('Pusher')->trigger('swatch_update_trigger_' . $request->input('slug'), 'update', ['message' => 'update transmitted']);
+        return $result;
     }
 
     /**

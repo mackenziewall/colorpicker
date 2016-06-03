@@ -26,17 +26,16 @@ Route::post('ajax/lock', 'SwatchController@lock');
 Route::post('ajax/update', 'SwatchController@update');
 Route::post('ajax/delete', 'SwatchController@delete');
 
-Route::any('test', function() {
-	 $options = array(
-    'encrypted' => true
-  );
-  $pusher = new Pusher(
-    '0c38ef7d30a8ee3a1055',
-    'b796f089af27bca288a9',
-    '212946',
-    $options
-  );
-
-  $data['message'] = 'hello world';
-  $pusher->trigger('swatch_update_trigger', 'swatch_update', $data);
+//move to service providers... eventually
+App::bind('Pusher', function($app) {
+	$options = array(
+	    'encrypted' => true
+	  );
+	$keys = $app['config']->get('services.pusher');
+	return new Pusher(getenv('PUSHER_KEY'),getenv('PUSHER_SECRET'),getenv('PUSHER_ID'));
 });
+
+// Route::any('test', function() {
+//   App::make('Pusher')->trigger('swatch_update_trigger:' . , 'update', ['message' => 'update transmitted']);
+//   return 'Done';
+// });

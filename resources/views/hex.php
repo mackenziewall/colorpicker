@@ -5,9 +5,8 @@
         <base href="/home.php" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script type="text/javascript" src="/js/app.js"></script>
+        <script src="https://code.angularjs.org/1.4.8/angular-route.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/app.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -16,8 +15,11 @@
         <script type="text/javascript" src="/js/spectrum.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/spectrum.css">
         <script type="text/javascript" src="/js/clipboard.min.js"></script>
+        <script type="text/javascript" src="/js/doowb.angular-pusher.js"></script>
         <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
-        <script type="text/javascript" src="/js/app.pusher.js"></script>
+
+        <script type="text/javascript" src="/js/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/app.css">
     </head>
     <body role="document" ng-app="colorpicker">
         <!-- Fixed navbar -->
@@ -62,5 +64,6 @@
                 <div class="endblock block"><a type='button' ng-hide="SwatchData.lock" ng-click="SwatchData.addblock()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
             </div>
         </div>
+        <div class="container theme-showcase"></div>
     </body>
 </html>

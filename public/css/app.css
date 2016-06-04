@@ -30,7 +30,7 @@ body {
 	color:#fff;
 	opacity:1;
 }
-.scramble-toggle.active{
+.scramble-toggle.anchored{
 	opacity:1;
 	color:#555;
 	background-color:#fff;
@@ -300,3 +300,8 @@ body {
 .navbar-inverse .navbar-toggle:hover { background-color: #ececec;}
 .btn.generic{background-color:#aaaaaa;}
 .btn.generic:hover{background-color:#a0a0a0;color:#000 !important;}
+.anchored{background-color:#fff;
+	opacity:1;
+	color:#555;
+	background-color:#fff;
+}

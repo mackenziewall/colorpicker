@@ -36,6 +36,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 	.controller('SwatchController', ['$http', '$scope', '$timeout', '$window', 'SwatchData', 'Pusher', 'CSRF_TOKEN', 
 	function ($http, $scope, $timeout, $window, SwatchData, Pusher, CSRF_TOKEN ) {
 		$scope.SwatchData = SwatchData;
+		$scope.SwatchData.busy = false;
 		$scope.SwatchData.anchored = [];
 		var self = this;
 		var status;
@@ -172,7 +173,8 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 		});
 
 		Pusher.subscribe('swatch_update_trigger_'+$scope.SwatchData.slug, 'update', function (item) {
-			$scope.SwatchData.update();
+			if($scope.SwatchData.busy == false)
+				$scope.SwatchData.update();
 		});
 		$scope.$on('$destroy', function () {
 			Pusher.unsubscribe('swatch_update_trigger_'+$scope.SwatchData.slug);
@@ -202,6 +204,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 					}, function errorCallback(response) {});
 			};
 			this.scramble = function (){ 
+				$scope.SwatchData.busy = true;
 				var scramblevalues = [];
 				//$scope.SwatchData.blocks.forEach(function(data){
 				Object.keys($scope.SwatchData.blocks).forEach(function (key) {
@@ -218,7 +221,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				        setTimeout(iterator, 500);
 				    }
 				})();
-				// $scope.SwatchData.blocks;
+				$scope.SwatchData.busy = false;
 			};
 	}]);
 

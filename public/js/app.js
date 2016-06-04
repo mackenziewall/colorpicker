@@ -122,7 +122,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 		$scope.eventNotifications = 0;
 		$scope.eventNotification = '';
 
-		this.generatesass = function (){ console.log(1);
+		this.generatesass = function (){
 			$http({
 				method: 'GET',
 				url: 'ajax/sass/' + $scope.SwatchData.slug

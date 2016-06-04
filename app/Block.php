@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Hex;
 
 use Faker\Factory as Faker;
 
@@ -19,25 +18,13 @@ class Block extends Model
     }
     public function init( $color = '' )  
     {
-        $this->save();
         if( empty($color) ) {
             $faker = Faker::create();
             $color = substr($faker->hexcolor,1,6);
         }
-        $hex = new Hex;
-        $hex->block_id = $this->id;
-        $hex->value = $color;
-        $hex->save();
-        return ['status' => $hex->id];
-    }
-    /**
-     * A Block had many hex entries.
-     * 
-     * @return \Illuminate\Database\Eloquent\HasMany
-     */
-    public function hex()
-    {
-        return $this->hasMany('App\Hex');
+        $this->value = $color;
+        $this->save();
+        return ['status' => $this->created_at];
     }
 
     public function swatch()
@@ -47,11 +34,9 @@ class Block extends Model
 
     public function iterate( $color )
     {
-        $hex = new Hex;;
-        $hex->block_id = $this->id;
-        $hex->value = str_replace("#", "", $color);
-        $hex->save();
-        return ['status' => $hex->id];
+        $this->value = str_replace("#", "", $color);
+        $this->save();
+        return ['status' => strtotime($this->updated_at)];
     }
 
 }

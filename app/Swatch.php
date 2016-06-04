@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Block;
-use App\Hex;
 
 class Swatch extends Model
 {
@@ -52,22 +51,16 @@ class Swatch extends Model
         return $this->hasMany('App\Block');
     }
 
-    public function hex()
-    {
-        return $this->hasManyThrough('App\Hex', 'App\Block');
-    }
-
     public function values()
     {
         $query = $this->blocks();
         $id = 0;
-        foreach($query->get() as $key => $value)
+        foreach($query->get() as $key => $block)
         {
-            $hex = $value->hex()->get()->last()->toArray();
-            
-            if(!empty($hex['value']))
-                $data['blocks'][] = ['id' => $value->id, 'value' => $hex['value']];
-            $id = max($hex['id'], $id);
+            if(!empty($block->value))
+                $data['blocks'][] = ['id' => $block->id, 'value' => $block['value']];
+
+            $id = max(strtotime($block->updated_at), $id);
         }
         ksort( $data['blocks']);
         $data['lock'] = $this->lock;

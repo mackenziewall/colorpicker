@@ -36,7 +36,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 		$scope.SwatchData = SwatchData;
 		var self = this;
 		var status;
-		var url = $scope.SwatchData.url;
+		self.url = $scope.SwatchData.url;
 		var requesthttp = 'ajax/fetch/' + $scope.SwatchData.slug;
 
 		$scope.layoutDone = function() { 

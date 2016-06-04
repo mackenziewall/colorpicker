@@ -122,7 +122,7 @@
 						</div>
 						<hr>-->
 						<footer>
-							<p>© Copyright <?php echo date("Y"); ?> Company, Inc.</p>
+							<p>© Copyright <?php echo date("Y"); ?></p>
 						</footer>
 					</div>
 				</div>

@@ -55,9 +55,9 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			var seed = Math.random();
 			var color = seed.toString(16).slice(2, 8);
 			var tempid = Math.random().toString(10).slice(2, 8);
-console.log('line58');
+
 			$scope.SwatchData.blocks[tempid] = {id: tempid, value: color};
-			console.log('line60');
+
 			$http({
 					method: 'POST',
 					url: 'ajax/add',
@@ -92,7 +92,7 @@ console.log('line58');
 				url: requesthttp
 			}).then(function successCallback(response) {
 					if($scope.SwatchData.status == undefined || $scope.SwatchData.status < response.data.status) {
-						$scope.SwatchData.status = response.data.status;console.log(response.data.blocks);
+						$scope.SwatchData.status = response.data.status;
 						delete $scope.SwatchData.blocks;
 						$scope.SwatchData.blocks = response.data.blocks;
 						$scope.SwatchData.id = response.data.id;
@@ -169,9 +169,9 @@ console.log('line58');
 			
 			var clipboard = new Clipboard('.clippy');
 			clipboard.on('success', function(e) {
-				console.log('Copied to clipboard!');
-				//$("#" + e.trigger.id).tooltip('Copied!');
-				//e.trigger.tooltip('Copied!');
+				var contentcopied = $("#" + e.trigger.id).val();
+				setTimeout( function() { $("#" + e.trigger.id).val('Copied!'); }, 100);
+				setTimeout( function() { $("#" + e.trigger.id).val(contentcopied); }, 1500);
 			});
 	}]);
 

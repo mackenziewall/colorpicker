@@ -1,199 +1,280 @@
-body{padding-top:90px;background-color:#d9d9d9;}
-.sp-dd{text-shadow:none;}
-.sp-replacer{margin-bottom:9px !important;}
-.nav li:hover .nav-label{opacity:1;}
-.nav li .nav-label{opacity:.3;}
-.block{display:inline-block;float:left;position:relative;}
-.colorblock{height:150px;width:180px;}
-.block:hover .color-input{opacity:1;}
-.nav li{cursor:pointer;}
-.pointer {cursor:pointer;}
-.color-input{
-    position:absolute; 
-    bottom:0;
-    margin-left:0;
-    margin-right:0;
-    width:100%;
-    left:5px;
-    font-size:32px; 
-    font-family: 'Oswald', sans-serif;
-    color: #FFF;
-    font-size:22px;
+body {
+		padding-top: 90px;
+		background-color: #d9d9d9;
 }
-.color-input .blabel{
-    /* layering text shadows looks infinitely better than webkit stroke 
-    since it is aligned to outside/behind text instead of compomising integrity of the text */
-    text-shadow: 
-      0 1px rgba(0,0,0,.3),
-      1px 0 rgba(0,0,0,.3),
-      0 -1px rgba(0,0,0,.3),
-      -1px 0 rgba(0,0,0,.3),
-      1px 1px rgba(0,0,0,.3),
-      1px -1px rgba(0,0,0,.3),
-      -1px 1px rgba(0,0,0,.3),
-      -1px -1px rgba(0,0,0,.3);
-    width:60%;
-    text-transform: uppercase;
-    font-size:26px; 
-    background-color:transparent;
-    border:none;
-    text-align:center;}
-.color-input .picker{width:50px;height:30px;float:left;}
-.swatch{
-    display:inline-block;
-    position:relative;
-    margin:0;
-    background-color: #fff;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: rgba(0,0,0,0.2) 0px 0 10px;
-    -moz-box-shadow: rgba(0,0,0,0.2) 0 0 10px;
-    box-shadow: rgba(0,0,0,0.2) 0 0 10px;
+.sp-dd {
+		text-shadow: none;
 }
-.delete:hover{color:#C00;-webkit-text-fill-color: #C00;}
-.delete {font-size:26px; padding-bottom:12px; box-shadow: none;color:red; border:none;position:absolute;top:0;right:10px;
-    -webkit-text-fill-color: red; /* Will override color (regardless of order) */ 
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #000;}
-#b1{background-color:#F00;}
-#b2{background-color:#55F;}
-#b3{background-color:#872;}
-.addnew i, .delete i {font-size:20px;}
-.startblock, .endblock {background-color:#FFF;}
-.sneaky{
-  width:120px;
-  height:10px;
-  font-size:8px;
-  line-height:10px;
-  border:none;
-  bottom:0;
-  right:0;
-  display:none;
+.sp-replacer {
+		margin-bottom: 9px !important;
 }
-.nav li:hover .sneaky{display:inline-block;}
-
-@media (min-width:768px){
-    .addnew{position:absolute;top:42%;right:4px;}
-    .startblock, .endblock {height:150px;width:25px;}
-    .endblock{
-        -webkit-border-top-right-radius: 10px;
-        -webkit-border-bottom-right-radius: 10px;
-        -moz-border-radius-topright: 10px;
-        -moz-border-radius-bottomright: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-    .startblock{
-        -webkit-border-top-left-radius: 10px;
-        -webkit-border-bottom-left-radius: 10px;
-        -moz-border-radius-topleft: 10px;
-        -moz-border-radius-bottomleft: 10px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
-    .blockbucket{padding:0 25px;}
+.nav li:hover .nav-label {
+		opacity: 1;
 }
-@media (min-width:992px) and (max-width: 1199px)
-{.colorblock{width:177px !important;}}
-@media (min-width:768px) and (max-width: 992px)
-{.colorblock{width:166px !important;}}
-@media (max-width:767px){
-    .swatch{display:block;width:100%;max-height:500px;}
-    .color-input .blabel{width:60% !important;}
-    .block{display:block;width:100% !important;}
-    .startblock, .endblock {min-height:25px;height:25px;width:200px;}
-    .startblock{-webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-topright: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;}
-    .endblock{
-        padding-top:5px;
-        height:30px;
-        text-align:center;
-        -webkit-border-bottom-right-radius: 10px;
-        -webkit-border-bottom-left-radius: 10px;
-        -moz-border-radius-bottomright: 10px;
-        -moz-border-radius-bottomleft: 10px;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
-    .addnew{
-      position:relative;
-      margin-right:auto !important;
-      margin-left:auto !important;
-    }
+.nav li .nav-label {
+		opacity: .3;
 }
-
-
+.block {
+		display: inline-block;
+		float: left;
+		position: relative;
+}
+.colorblock {
+		height: 150px;
+		width: 180px;
+}
+.block:hover .color-input {
+		opacity: 1;
+}
+.nav li {
+		cursor: pointer;
+}
+.pointer {
+		cursor: pointer;
+}
+.color-input {
+		position: absolute;
+		bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
+		left: 5px;
+		font-size: 32px;
+		font-family: 'Oswald', sans-serif;
+		color: #FFF;
+		font-size: 22px;
+}
+.color-input .blabel {
+		/* layering text shadows looks infinitely better than webkit stroke 
+		since it is aligned to outside/behind text instead of compomising integrity of the text */
+		
+		text-shadow: 0 1px rgba(0, 0, 0, .3), 1px 0 rgba(0, 0, 0, .3), 0 -1px rgba(0, 0, 0, .3), -1px 0 rgba(0, 0, 0, .3), 1px 1px rgba(0, 0, 0, .3), 1px -1px rgba(0, 0, 0, .3), -1px 1px rgba(0, 0, 0, .3), -1px -1px rgba(0, 0, 0, .3);
+		width: 60%;
+		text-transform: uppercase;
+		font-size: 26px;
+		background-color: transparent;
+		border: none;
+		text-align: center;
+}
+.color-input .picker {
+		width: 50px;
+		height: 30px;
+		float: left;
+}
+.swatch {
+		display: inline-block;
+		position: relative;
+		margin: 0;
+		background-color: #fff;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0 10px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+		box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+.delete:hover {
+		color: #C00;
+		-webkit-text-fill-color: #C00;
+}
+.delete {
+		font-size: 26px;
+		padding-bottom: 12px;
+		box-shadow: none;
+		color: red;
+		border: none;
+		position: absolute;
+		top: 0;
+		right: 10px;
+		-webkit-text-fill-color: red;
+		/* Will override color (regardless of order) */
+		
+		-webkit-text-stroke-width: 1px;
+		-webkit-text-stroke-color: #000;
+}
+#b1 {
+		background-color: #F00;
+}
+#b2 {
+		background-color: #55F;
+}
+#b3 {
+		background-color: #872;
+}
+.addnew i,
+.delete i {
+		font-size: 20px;
+}
+.startblock,
+.endblock {
+		background-color: #FFF;
+}
+.sneaky {
+		width: 120px;
+		height: 10px;
+		font-size: 8px;
+		line-height: 10px;
+		border: none;
+		bottom: 0;
+		right: 0;
+		display: none;
+}
+.nav li:hover .sneaky {
+		display: inline-block;
+}
+@media (min-width: 768px) {
+		.addnew {
+				position: absolute;
+				top: 42%;
+				right: 4px;
+		}
+		.startblock,
+		.endblock {
+				height: 150px;
+				width: 25px;
+		}
+		.endblock {
+				-webkit-border-top-right-radius: 10px;
+				-webkit-border-bottom-right-radius: 10px;
+				-moz-border-radius-topright: 10px;
+				-moz-border-radius-bottomright: 10px;
+				border-top-right-radius: 10px;
+				border-bottom-right-radius: 10px;
+		}
+		.startblock {
+				-webkit-border-top-left-radius: 10px;
+				-webkit-border-bottom-left-radius: 10px;
+				-moz-border-radius-topleft: 10px;
+				-moz-border-radius-bottomleft: 10px;
+				border-top-left-radius: 10px;
+				border-bottom-left-radius: 10px;
+		}
+		.blockbucket {
+				padding: 0 25px;
+		}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+		.colorblock {
+				width: 177px !important;
+		}
+}
+@media (min-width: 768px) and (max-width: 992px) {
+		.colorblock {
+				width: 166px !important;
+		}
+}
+@media (max-width: 767px) {
+		.swatch {
+				display: block;
+				width: 100%;
+				max-height: 500px;
+		}
+		.color-input .blabel {
+				width: 60% !important;
+		}
+		.block {
+				display: block;
+				width: 100% !important;
+		}
+		.startblock,
+		.endblock {
+				min-height: 25px;
+				height: 25px;
+				width: 200px;
+		}
+		.startblock {
+				-webkit-border-top-left-radius: 10px;
+				-webkit-border-top-right-radius: 10px;
+				-moz-border-radius-topleft: 10px;
+				-moz-border-radius-topright: 10px;
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+		}
+		.endblock {
+				padding-top: 5px;
+				height: 30px;
+				text-align: center;
+				-webkit-border-bottom-right-radius: 10px;
+				-webkit-border-bottom-left-radius: 10px;
+				-moz-border-radius-bottomright: 10px;
+				-moz-border-radius-bottomleft: 10px;
+				border-bottom-right-radius: 10px;
+				border-bottom-left-radius: 10px;
+		}
+		.addnew {
+				position: relative;
+				margin-right: auto !important;
+				margin-left: auto !important;
+		}
+}
 .navbar-default {
-  background-color: #ffffff;
-  border-color: #e3e3e3;
+		background-color: #ffffff;
+		border-color: #e3e3e3;
 }
 .navbar-default .navbar-brand {
-  color: #545454;
+		color: #545454;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #181818;
+		color: #181818;
 }
 .navbar-default .navbar-text {
-  color: #545454;
+		color: #545454;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #545454;
+		color: #545454;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #181818;
+		color: #181818;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #181818;
-  background-color: #e3e3e3;
+		color: #181818;
+		background-color: #e3e3e3;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  color: #181818;
-  background-color: #e3e3e3;
+		color: #181818;
+		background-color: #e3e3e3;
 }
 .navbar-default .navbar-toggle {
-  border-color: #e3e3e3;
+		border-color: #e3e3e3;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #e3e3e3;
+		background-color: #e3e3e3;
 }
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #545454;
+		background-color: #545454;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #545454;
+		border-color: #545454;
 }
 .navbar-default .navbar-link {
-  color: #545454;
+		color: #545454;
 }
 .navbar-default .navbar-link:hover {
-  color: #181818;
+		color: #181818;
 }
-.navbar-default{padding-bottom:50px ;}
+.navbar-default {
+		padding-bottom: 50px;
+}
 @media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #545454;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #181818;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #181818;
-    background-color: #e3e3e3;
-  }
+		.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+				color: #545454;
+		}
+		.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+		.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+				color: #181818;
+		}
+		.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+		.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+		.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+				color: #181818;
+				background-color: #e3e3e3;
+		}
 }

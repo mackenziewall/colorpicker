@@ -46,7 +46,7 @@
             </div><!--/.nav-collapse -->
           </div>
         </nav>
-        <div class="container theme-showcase" ng-controller="SwatchController as swatch">
+        <div class="container theme-showcase content-row content-row-1" ng-controller="SwatchController as swatch">
             <div class="swatch" ng-show="SwatchData.blocks" >
                 <div class="startblock block"></div>
                 <div class="blockbucket">
@@ -63,6 +63,35 @@
                 <div class="endblock block"><a type='button' ng-hide="SwatchData.locked" ng-click="SwatchData.addblock()" class="addnew pointer"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
             </div>
         </div>
-        <div class="container theme-showcase"></div>
+        <div class="theme-showcase content-row content-row-2">
+        	<div class="container">
+			      <!-- Example row of columns -->
+			      <div class="row">
+			        <div class="col-md-6">
+			          <h2>Sass</h2>
+			          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+			        </div>
+			        <div class="col-md-6">
+			          <h2>Share</h2>
+			          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+			       </div>
+			      </div>
+			    </div>
+        </div>
+        <div class="theme-showcase content-row content-row-3">
+        	<div class="container">
+			      <!-- Example row of columns -->
+			      <div class="row">
+			        <div class="col-md-12">
+			          <h2>Blog</h2>
+			          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+			        </div>
+			      </div>
+			      <hr>
+			      <footer>
+			        <p>© 2015 Company, Inc.</p>
+			      </footer>
+			    </div>
+        </div>
     </body>
 </html>

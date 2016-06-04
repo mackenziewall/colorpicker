@@ -58,7 +58,7 @@ body {
 }
 .colorblock {
 		height: 150px;
-		width: 180px;
+		width: 185px;
 }
 .block:hover .color-input {
 		opacity: 1;
@@ -200,12 +200,12 @@ body {
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 		.colorblock {
-				width: 177px !important;
+				width: 179px !important;
 		}
 }
 @media (min-width: 768px) and (max-width: 992px) {
 		.colorblock {
-				width: 166px !important;
+				width: 169px !important;
 		}
 }
 @media (max-width: 767px) {

@@ -76,7 +76,7 @@
 
 				<div ng-controller="SwatchController as swatch" class="cbody">
 					<div class="container theme-showcase content-row content-row-1">
-						<div class="swatch" ng-show="SwatchData.blocks" >
+						<div class="swatch" ng-show="SwatchData.blocks" ng-cloak>
 								<div class="startblock block"></div>
 								<div class="blockbucket">
 										<span ng-repeat="block in SwatchData.blocks track by block.id" repeat-done="layoutDone()">

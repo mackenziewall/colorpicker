@@ -96,21 +96,18 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-6">
-									<h2>Sass</h2>
-									<p>Paste your variables directly into your project. </p>
-									<div class="input-group">
-										<input id="foo" type="text" value="https://github.com/zenorocha/clipboard.js.git">
-										<span class="input-group-button">
-										<button class="btn" type="button" data-clipboard-demo="" data-clipboard-target="#foo">Copy</button>
-										</span>
-									</div>
-									<a type='button' class="clippy" title="copy sass variables to clipboard" data-clipboard-target="#clip-sass"><i class="fa fa-align-left" aria-hidden="true"></i> <span class="nav-label">Sass</span> <input id="clip-sass" class="sneaky" value="{{navigation.sass}}" ng-model="navigation.sass" ></a>
-									
-								</div>
-								<div class="col-md-6">
 									<h2>Share</h2>
-										<input id="clip-share" value="{{swatch.url}}" value="{{swatch.url}}" ng-model="swatch.url" > <a type='button' class="clippy" title="copy url to clipboard" data-clipboard-target="#clip-share"><i class="fa fa-link" aria-hidden="true"></i><input class="sneaky" value="{{navigation.url}}" ng-model="navigation.url" ></a>
-							 </div>
+										<p>Your friends need to see this. </p>
+										<input id="clip-share" value="{{swatch.url}}" value="{{swatch.url}}" class="clipboard clipboard-text"><button id="clip-share-btn" type='button' class="clippy btn btn-primary clipboard" title="copy url to clipboard" data-clipboard-target="#clip-share">Copy</button>
+									<hr/>
+									<h2>Clone</h2>
+									<p><button class="btn generic" ng-click="SwatchData.clone()" >Click here</button> uplicate this set of colors to a .ew color swatch. </p>
+							 	</div>
+								<div class="col-md-6">
+									<h2>Sass</h2>
+									<p>Paste your variables directly into your project. <button class="btn generic" href="#nogo" ng-click="swatch.generatesass()" >Generate Sass</button></p><br/>
+									<div ng-show="SwatchData.sass"><textarea id="clip-sass" ng-model="SwatchData.sass" class="clipboard clipboard-textarea" >{{SwatchData.sass}}</textarea><button id="clip-share-btn" type='button' class="clippy btn btn-primary clipboard" title="copy url to clipboard" data-clipboard-target="#clip-sass">Copy</button></div>
+								</div>
 							</div>
 						</div>
 					</div>

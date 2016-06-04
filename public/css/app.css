@@ -26,6 +26,31 @@ body {
 .nav li .nav-label {
 		opacity: 1;
 }
+.btn.clipboard{
+	vertical-align:top !important;
+	-webkit-border-radius: 4px;
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius: 4px;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-radius: 4px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+.clipboard-text {
+	height:34px;
+	border:none; 
+	width:250px;
+	padding:7px 10px;
+
+}
+.clipboard-textarea {
+	min-height:214px;
+	border:none; 
+	width:250px;
+	padding:7px 10px;
+}
 .block {
 		display: inline-block;
 		float: left;
@@ -41,9 +66,13 @@ body {
 .nav li {
 		cursor: pointer;
 		font-size:18px;
+}
+@media (max-width: 768px){
+	ul.nav li{
 		width:33%;
 		float:left;
-  	text-align:center;
+	  text-align:center;
+	}
 }
 .pointer {
 		cursor: pointer;
@@ -244,4 +273,6 @@ body {
 .navbar-inverse .navbar-nav>.dropdown>a .caret { border-bottom-color: #999999}
 .navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-bottom-color: #FFFFFF}
 .navbar-inverse .navbar-toggle .icon-bar { background-color: #666;}
-.navbar-inverse .navbar-toggle:hover .icon-bar { background-color: #fff;}
+.navbar-inverse .navbar-toggle:hover { background-color: #ececec;}
+.btn.generic{background-color:#aaaaaa;}
+.btn.generic:hover{background-color:#a0a0a0;color:#000 !important;}

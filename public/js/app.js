@@ -77,6 +77,18 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 					delete $scope.SwatchData.blocks[blockid];
 			}, function errorCallback(response) {});
 		};
+
+		this.clone = function (){
+			$http({
+				method: 'POST',
+				url: '/ajax/clone',
+				data: { 'slug' : $scope.SwatchData.slug }
+			}).then(function successCallback(response) {
+					if(response.data.slug && response.data.slug.length)
+						$window.location.href = url_array[0] + "/hex/" + response.data.slug;
+				}, function errorCallback(response) {});
+		};
+
 		$scope.SwatchData.changeblock = function ( blockid, value ){ 
 			$http({
 				method: 'POST',
@@ -105,13 +117,38 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			$scope.SwatchData.update();
 		});
 
-		var clipboard = new Clipboard('.clippy');
-		clipboard.on('success', function(e) {});
-
 		$scope.callbackNotifications = 0;
 		$scope.callbackNotification = '';
 		$scope.eventNotifications = 0;
 		$scope.eventNotification = '';
+
+		this.generatesass = function (){ console.log(1);
+			$http({
+				method: 'GET',
+				url: 'ajax/sass/' + $scope.SwatchData.slug
+			}).then(function successCallback(response) {
+				$scope.SwatchData.sass = response.data.sass;
+				}, function errorCallback(response) {});
+		};
+		
+		var clipboard = new Clipboard('.clippy');
+		clipboard.on('success', function(e) {console.log(e.trigger.type);
+			if(e.trigger.type == 'text')
+			{
+				var contentcopied = $("#" + e.trigger.id).val();
+				setTimeout( function() { $("#" + e.trigger.id).val('Copied!'); }, 100);
+				setTimeout( function() { $("#" + e.trigger.id).val(contentcopied); }, 1500);
+			}
+			else if(e.trigger.type == 'button')
+			{
+				var contentcopied = $("#" + e.trigger.id).html();
+				setTimeout( function() { $("#" + e.trigger.id).html('Copied!'); }, 100);
+				setTimeout( function() { $("#" + e.trigger.id).html(contentcopied); }, 1500);
+			}
+
+		});
+
+
 
 		Pusher.subscribe('swatch_update_trigger_'+$scope.SwatchData.slug, 'update', function (item) {
 			console.log('update received');
@@ -133,17 +170,6 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			navigation.url = $location.absUrl();
 			$scope.SwatchData.url = navigation.url;
 
-			this.clone = function (){ 
-				$http({
-					method: 'POST',
-					url: '/ajax/clone',
-					data: { 'slug' : navigation.slug }
-				}).then(function successCallback(response) {
-						if(response.data.slug && response.data.slug.length)
-							$window.location.href = url_array[0] + "/hex/" + response.data.slug;
-					}, function errorCallback(response) {});
-			};
-
 			this.lock = function (){ 
 				$http({
 					method: 'POST',
@@ -155,24 +181,6 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 						$('.sp-replacer').hide();
 					}, function errorCallback(response) {});
 			};
-
-			this.sass = function (){ 
-				$http({
-					method: 'GET',
-					url: 'ajax/sass/' + navigation.slug
-				}).then(function successCallback(response) {
-					navigation.sass = response.data.sass;
-					}, function errorCallback(response) {});
-
-				navigation.url = $location.absUrl();
-			};
-			
-			var clipboard = new Clipboard('.clippy');
-			clipboard.on('success', function(e) {
-				var contentcopied = $("#" + e.trigger.id).val();
-				setTimeout( function() { $("#" + e.trigger.id).val('Copied!'); }, 100);
-				setTimeout( function() { $("#" + e.trigger.id).val(contentcopied); }, 1500);
-			});
 	}]);
 
 app.service('swatchService', function() {

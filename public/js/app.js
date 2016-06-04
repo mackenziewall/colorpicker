@@ -105,9 +105,11 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			}).then(function successCallback(response) {
 					if($scope.SwatchData.status == undefined || $scope.SwatchData.status < response.data.status) {
 						$scope.SwatchData.status = response.data.status;
+						$scope.SwatchData.blockarray = jQuery.makeArray(response.data.blocks);
 						delete $scope.SwatchData.blocks;
 						$scope.SwatchData.blocks = response.data.blocks;
-						console.log($scope.SwatchData.blocks);
+
+
 						$scope.SwatchData.id = response.data.id;
 						$scope.SwatchData.lock = response.data.lock;
 					}
@@ -133,7 +135,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 		};
 		
 		var clipboard = new Clipboard('.clippy');
-		clipboard.on('success', function(e) {console.log(e.trigger.type);
+		clipboard.on('success', function(e) {
 			if(e.trigger.type == 'text')
 			{
 				var contentcopied = $("#" + e.trigger.id).val();
@@ -149,10 +151,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 
 		});
 
-
-
 		Pusher.subscribe('swatch_update_trigger_'+$scope.SwatchData.slug, 'update', function (item) {
-			console.log('update received');
 			$scope.SwatchData.update();
 		});
 		$scope.$on('$destroy', function () {

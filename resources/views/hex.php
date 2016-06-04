@@ -79,11 +79,11 @@
 						<div class="swatch" ng-show="SwatchData.blocks" >
 								<div class="startblock block"></div>
 								<div class="blockbucket">
-										<span ng-repeat="block in SwatchData.blocks" repeat-done="layoutDone()">
+										<span ng-repeat="block in SwatchData.blocks track by block.id" repeat-done="layoutDone()">
 												<div ng-hide="block.value == ''" class="colorblock block" id="block{{block.id}}" style="background-color:{{block.value | hex}};">
 														<span class="color-input">
 																<input ng-hide="SwatchData.locked" type="text" ng-model="block.value" ng-change="SwatchData.changeblock(block.id,block.value)" class="picker" name="picker-{{block.id}}" value="{{block.value | hex}}" /> 
-																<input type="text" onClick="this.select();" class="blabel clippy pointer" title="copy to clipboard" onClick="this.select();" data-clipboard-target="#clip-b{{block.id}}" id="clip-b{{block.id}}" name="value-{{block.id}}" value="{{block.value | hex}}" readonly/> 
+																<input type="text" onClick="this.select();" ng-model="block.value" class="blabel clippy pointer" title="copy to clipboard" onClick="this.select();" data-clipboard-target="#clip-b{{block.id}}" id="clip-b{{block.id}}" name="value-{{block.id}}" value="{{block.value | hex}}" readonly/> 
 														</span>
 														<a ng-hide="SwatchData.locked || SwatchData.singleblock()" ng-click="SwatchData.deleteblock(block.id)" class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
 												</div>

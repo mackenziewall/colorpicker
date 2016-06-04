@@ -107,6 +107,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 						$scope.SwatchData.status = response.data.status;
 						delete $scope.SwatchData.blocks;
 						$scope.SwatchData.blocks = response.data.blocks;
+						console.log($scope.SwatchData.blocks);
 						$scope.SwatchData.id = response.data.id;
 						$scope.SwatchData.lock = response.data.lock;
 					}

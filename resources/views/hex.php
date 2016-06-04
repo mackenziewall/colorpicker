@@ -68,7 +68,7 @@
 				    <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
 				      <ul class="nav navbar-nav">
 								<li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
-								<li><a type='button' ng-hide="navigation.locked" title="This will pick new random colors on any non-anchored block!" ng-click="navigation.scramble()"><i class="fa fa-random" aria-hidden="true"></i> <span class="nav-label">Scramble</span></a></li>
+								<li><a type='button' ng-hide="SwatchData.locked" title="This will pick new random colors on any non-anchored block!" ng-click="navigation.scramble()"><i class="fa fa-random" aria-hidden="true"></i> <span class="nav-label">Scramble</span></a></li>
 								<li><a type='button' ng-hide="SwatchData.locked" ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
 				      </ul>
 				    </nav>
@@ -85,7 +85,7 @@
 																<input ng-hide="SwatchData.locked" type="text" ng-model="block.value" ng-change="SwatchData.changeblock(block.id,block.value)" class="picker" name="picker-{{block.id}}" value="{{block.value | hex}}" /> 
 																<input type="text" onClick="this.select();" class="blabel clippy pointer" title="copy to clipboard" onClick="this.select();" data-clipboard-target="#clip-b{{block.id}}" id="clip-b{{block.id}}" name="value-{{block.id}}" value="{{block.value | hex}}" readonly/> 
 														</span>
-														<button ng-hide="SwatchData.locked" id="scrambler-t{{block.id}}" type="button" class="btn scramble-toggle blabel" data-toggle="button"><i class="fa fa-anchor" aria-hidden="true"></i></button>
+														<button ng-hide="SwatchData.locked" ng-class="{ anchored: SwatchData.anchored[block.id] == true }" ng-click="SwatchData.anchor(block.id)" id="scrambler-t{{block.id}}" type="button" class="btn scramble-toggle blabel" data-toggle="button"><i class="fa fa-anchor" aria-hidden="true"></i></button>
 														<a ng-hide="SwatchData.locked || SwatchData.singleblock()" ng-click="SwatchData.deleteblock(block.id)" class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
 												</div>
 										</span>

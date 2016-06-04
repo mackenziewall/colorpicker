@@ -114,6 +114,13 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 						$scope.SwatchData.blocks = response.data.blocks;
 						$scope.SwatchData.id = response.data.id;
 						$scope.SwatchData.locked = response.data.lock;
+
+						if($scope.SwatchData.anchored == undefined)
+							$scope.SwatchData.anchored = [];
+						$scope.SwatchData.blocks.forEach(function (block) {
+							if($scope.SwatchData.anchored[block.id] == undefined)
+								$scope.SwatchData.anchored[block.id] = false;
+						});
 					}
 			}, function errorCallback(response) {});
 		};
@@ -136,7 +143,18 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				$scope.SwatchData.sass = response.data.sass;
 				}, function errorCallback(response) {});
 		};
-		
+
+		$scope.SwatchData.anchor = function (id){
+			if ($scope.SwatchData.anchored[id] != true)
+			{
+				$scope.SwatchData.anchored[id] = true;
+			}
+			else
+			{
+				$scope.SwatchData.anchored[id] = false;
+			}
+		};
+
 		var clipboard = new Clipboard('.clippy');
 		clipboard.on('success', function(e) {
 			if(e.trigger.type == 'text')
@@ -187,13 +205,11 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				var scramblevalues = [];
 				//$scope.SwatchData.blocks.forEach(function(data){
 				Object.keys($scope.SwatchData.blocks).forEach(function (key) {
-					if ($('#scrambler-t' + $scope.SwatchData.blocks[key].id).hasClass('active') != true)
+					if ($scope.SwatchData.anchored[$scope.SwatchData.blocks[key].id] != true)
 					{
 						scramblevalues.push({key:key,id: $scope.SwatchData.blocks[key].id, value:Math.random().toString(16).slice(2, 8)});
 					}
-				})
-				console.log(scramblevalues);
-				console.log($scope.SwatchData.blocks);
+				});
 				var i = 0, l = scramblevalues.length;
 				(function iterator() {
 							$scope.SwatchData.blocks[scramblevalues[i].key].value = scramblevalues[i].value;
@@ -203,7 +219,6 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				    }
 				})();
 				// $scope.SwatchData.blocks;
-				$scope.SwatchData.update();
 			};
 	}]);
 

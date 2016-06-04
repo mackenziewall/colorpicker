@@ -30,10 +30,13 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			.setOptions({});
 		}
 	])
-	.controller('SwatchController', ['$http', '$scope', '$timeout', '$window', 'SwatchData', 'Pusher', 
-	function ($http, $scope, $timeout, $window, SwatchData, Pusher ) {
-
+	.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.timeout = 5000;
+	}])
+	.controller('SwatchController', ['$http', '$scope', '$timeout', '$window', 'SwatchData', 'Pusher', 'CSRF_TOKEN', 
+	function ($http, $scope, $timeout, $window, SwatchData, Pusher, CSRF_TOKEN ) {
 		$scope.SwatchData = SwatchData;
+		$scope.SwatchData.anchored = [];
 		var self = this;
 		var status;
 		self.url = $scope.SwatchData.url;
@@ -41,7 +44,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 
 		$scope.layoutDone = function() { 
 			//This is where we attach listeners to the elements in the ng-repeat loop
-			if(!$scope.SwatchData.lock)
+			if(!$scope.SwatchData.locked)
 				$timeout(function() { $(".picker").spectrum({showSelectionPalette: true, clickoutFiresChange: true, preferredFormat: "hex", showInitial: true, showInput: true}); }, 0); // wait...
 		}
 
@@ -51,7 +54,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			return true;
 		};
 
-		$scope.SwatchData.addblock = function (){ 
+		$scope.SwatchData.addblock = function (){
 			var seed = Math.random();
 			var color = seed.toString(16).slice(2, 8);
 			var tempid = seed.toString(10).slice(2, 8);
@@ -64,29 +67,28 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 					data: { 'slug' : $scope.SwatchData.slug, 'value': color }
 				}).then(function successCallback(response) {
 					 $scope.SwatchData.blocks[tempid].id = response.data.id;
-				}, function errorCallback(response) {$scope.SwatchData.blocks.pop(); console.log('Connection Lost.');});
+				}, function errorCallback(response) {console.log('Connection Lost.');});
 		};
 
 		$scope.SwatchData.deleteblock = function ( blockid ){ 
 			$http({
 				method: 'POST',
 				url: 'ajax/delete',
-				data: { 'slug' : $scope.SwatchData.slug, 'block': blockid }
+				data: { 'slug' : $scope.SwatchData.slug, 'block': blockid, csrf_token: CSRF_TOKEN }
 			}).then(function successCallback(response) {
 					$scope.SwatchData.status = response.data.status;
 					delete $scope.SwatchData.blocks[blockid];
-					delete $scope.SwatchData.blockarray[blockid];
 			}, function errorCallback(response) {});
 		};
 
-		this.clone = function (){
+		$scope.SwatchData.clone = function (){
 			$http({
 				method: 'POST',
 				url: '/ajax/clone',
-				data: { 'slug' : $scope.SwatchData.slug }
+				data: { 'slug' : $scope.SwatchData.slug, csrf_token: CSRF_TOKEN }
 			}).then(function successCallback(response) {
 					if(response.data.slug && response.data.slug.length)
-						$window.location.href = url_array[0] + "/hex/" + response.data.slug;
+						$window.location.href = "/hex/" + response.data.slug;
 				}, function errorCallback(response) {});
 		};
 
@@ -94,9 +96,9 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			$http({
 				method: 'POST',
 				url: 'ajax/update',
-				data: { 'slug' : $scope.SwatchData.slug, 'block': blockid, 'value': value }
+				data: { 'slug' : $scope.SwatchData.slug, 'block': blockid, 'value': value, csrf_token: CSRF_TOKEN }
 			}).then(function successCallback(response) {
-				$scope.SwatchData.update();
+				// $scope.SwatchData.update();
 			}, function errorCallback(response) {console.log('Connection Lost.');});
 		};
 		$scope.SwatchData.update = function(){
@@ -108,15 +110,14 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 						console.log('updating...');
 						$scope.SwatchData.status = response.data.status;
 						var blockarray = jQuery.makeArray(response.data.blocks);
-						delete $scope.SwatchData.blockarray;
-						$scope.SwatchData.blockarray = blockarray;
-						delete $scope.SwatchData.blocks;
+						$scope.SwatchData.blocks = blockarray;
 						$scope.SwatchData.blocks = response.data.blocks;
 						$scope.SwatchData.id = response.data.id;
-						$scope.SwatchData.lock = response.data.lock;
+						$scope.SwatchData.locked = response.data.lock;
 					}
 			}, function errorCallback(response) {});
 		};
+						
 		$scope.SwatchData.update();
 		$scope.$on('global_event', function (angularEvent, pusherEventData) {
 			$scope.SwatchData.update();
@@ -127,7 +128,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 		$scope.eventNotifications = 0;
 		$scope.eventNotification = '';
 
-		this.generatesass = function (){
+		$scope.SwatchData.generatesass = function (){
 			$http({
 				method: 'GET',
 				url: 'ajax/sass/' + $scope.SwatchData.slug
@@ -150,7 +151,6 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				setTimeout( function() { $("#" + e.trigger.id).html('Copied!'); }, 100);
 				setTimeout( function() { $("#" + e.trigger.id).html(contentcopied); }, 1500);
 			}
-
 		});
 
 		Pusher.subscribe('swatch_update_trigger_'+$scope.SwatchData.slug, 'update', function (item) {
@@ -184,31 +184,26 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 					}, function errorCallback(response) {});
 			};
 			this.scramble = function (){ 
-
-				// $scope.SwatchData.blockarray.forEach(function(data){
-				// 	if ($('#scrambler-t' + data.id).hasClass('active') != true)
-				// 	{
-				// 		var rando = "#" + Math.random().toString(16).slice(2, 8);
-
-				// 		$scope.SwatchData.changeblock(data.id, rando); 
-				// 	}
-				// })
-
-				var i = 0, l = $scope.SwatchData.blockarray.length;console.log($scope.SwatchData.blockarray);
+				var scramblevalues = [];
+				//$scope.SwatchData.blocks.forEach(function(data){
+				Object.keys($scope.SwatchData.blocks).forEach(function (key) {
+					if ($('#scrambler-t' + $scope.SwatchData.blocks[key].id).hasClass('active') != true)
+					{
+						scramblevalues.push({key:key,id: $scope.SwatchData.blocks[key].id, value:Math.random().toString(16).slice(2, 8)});
+					}
+				})
+				console.log(scramblevalues);
+				console.log($scope.SwatchData.blocks);
+				var i = 0, l = scramblevalues.length;
 				(function iterator() {
-						if ($('#scrambler-t' + $scope.SwatchData.blockarray[i].id).hasClass('active') != true)
-						{
-							var rando = Math.random().toString(16).slice(2, 8);
-							$scope.SwatchData.blockarray[i].value = rando;
-							$scope.SwatchData.changeblock($scope.SwatchData.blockarray[i].id, rando); 
-						}
-
+							$scope.SwatchData.blocks[scramblevalues[i].key].value = scramblevalues[i].value;
+							$scope.SwatchData.changeblock(scramblevalues[i].id, scramblevalues[i].value); 
 				    if(++i<l) {
 				        setTimeout(iterator, 500);
 				    }
 				})();
-
-
+				// $scope.SwatchData.blocks;
+				$scope.SwatchData.update();
 			};
 	}]);
 
@@ -244,3 +239,13 @@ var vis = (function(){
 		return !document[stateKey];
 	}
 })();
+
+function cleanArray(actual) {
+  var newArray = new Array();
+  for (var i = 0; i < actual.length; i++) {
+    if (actual[i]) {
+      newArray.push(actual[i]);
+    }
+  }
+  return newArray;
+}

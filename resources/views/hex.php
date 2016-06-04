@@ -98,7 +98,7 @@
 								<div class="col-md-6">
 									<h2>Share</h2>
 										<p>Your friends need to see this. </p>
-										<input id="clip-share" value="{{swatch.url}}" value="{{swatch.url}}" class="clipboard clipboard-text"><button id="clip-share-btn" type='button' class="clippy btn btn-primary clipboard" title="copy url to clipboard" data-clipboard-target="#clip-share">Copy</button>
+										<input id="clip-share" value="{{swatch.url}}" value="{{swatch.url}}" class="clipboard clipboard-text"><button id="clip-share-btn" type='button' class="clippy btn bclipboard generic" title="copy url to clipboard" data-clipboard-target="#clip-share">Copy</button>
 									<hr/>
 									<h2>Clone</h2>
 									<p><button class="btn generic" ng-click="SwatchData.clone()" >Click here</button> uplicate this set of colors to a .ew color swatch. </p>
@@ -106,7 +106,7 @@
 								<div class="col-md-6">
 									<h2>Sass</h2>
 									<p><button class="btn generic" href="#nogo" ng-click="swatch.generatesass()" >Generate Sass</button> and paste your variables directly into your project. </p><br/>
-									<div ng-show="SwatchData.sass"><textarea id="clip-sass" ng-model="SwatchData.sass" class="clipboard clipboard-textarea" >{{SwatchData.sass}}</textarea><button id="clip-sass-btn" type='button' class="clippy btn btn-primary clipboard" title="copy url to clipboard" data-clipboard-target="#clip-sass">Copy</button></div>
+									<div ng-show="SwatchData.sass"><textarea id="clip-sass" ng-model="SwatchData.sass" class="clipboard clipboard-textarea" >{{SwatchData.sass}}</textarea><button id="clip-sass-btn" type='button' class="clippy btn generic clipboard" title="copy url to clipboard" data-clipboard-target="#clip-sass">Copy</button></div>
 								</div>
 							</div>
 						</div>

@@ -54,7 +54,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 		$scope.SwatchData.addblock = function (){ 
 			var seed = Math.random();
 			var color = seed.toString(16).slice(2, 8);
-			var tempid = Math.random().toString(10).slice(2, 8);
+			var tempid = seed.toString(10).slice(2, 8);
 
 			$scope.SwatchData.blocks[tempid] = {id: tempid, value: color};
 
@@ -75,6 +75,7 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 			}).then(function successCallback(response) {
 					$scope.SwatchData.status = response.data.status;
 					delete $scope.SwatchData.blocks[blockid];
+					delete $scope.SwatchData.blockarray[blockid];
 			}, function errorCallback(response) {});
 		};
 
@@ -104,12 +105,13 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 				url: requesthttp
 			}).then(function successCallback(response) {
 					if($scope.SwatchData.status == undefined || $scope.SwatchData.status < response.data.status) {
+						console.log('updating...');
 						$scope.SwatchData.status = response.data.status;
-						$scope.SwatchData.blockarray = jQuery.makeArray(response.data.blocks);
+						var blockarray = jQuery.makeArray(response.data.blocks);
+						delete $scope.SwatchData.blockarray;
+						$scope.SwatchData.blockarray = blockarray;
 						delete $scope.SwatchData.blocks;
 						$scope.SwatchData.blocks = response.data.blocks;
-
-
 						$scope.SwatchData.id = response.data.id;
 						$scope.SwatchData.lock = response.data.lock;
 					}
@@ -180,6 +182,33 @@ var app = angular.module("colorpicker", ['ngRoute','doowb.angular-pusher'])
 						navigation.locked = 1;
 						$('.sp-replacer').hide();
 					}, function errorCallback(response) {});
+			};
+			this.scramble = function (){ 
+
+				// $scope.SwatchData.blockarray.forEach(function(data){
+				// 	if ($('#scrambler-t' + data.id).hasClass('active') != true)
+				// 	{
+				// 		var rando = "#" + Math.random().toString(16).slice(2, 8);
+
+				// 		$scope.SwatchData.changeblock(data.id, rando); 
+				// 	}
+				// })
+
+				var i = 0, l = $scope.SwatchData.blockarray.length;console.log($scope.SwatchData.blockarray);
+				(function iterator() {
+						if ($('#scrambler-t' + $scope.SwatchData.blockarray[i].id).hasClass('active') != true)
+						{
+							var rando = Math.random().toString(16).slice(2, 8);
+							$scope.SwatchData.blockarray[i].value = rando;
+							$scope.SwatchData.changeblock($scope.SwatchData.blockarray[i].id, rando); 
+						}
+
+				    if(++i<l) {
+				        setTimeout(iterator, 500);
+				    }
+				})();
+
+
 			};
 	}]);
 

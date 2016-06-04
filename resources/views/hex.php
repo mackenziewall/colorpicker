@@ -52,9 +52,9 @@
 						</div>
 					</div>
 				</nav> -->
-				<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+				<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner" ng-controller="navigationController as navigation">
 				  <div class="container">
-				    <div class="navbar-header" ng-controller="navigationController as navigation">
+				    <div class="navbar-header">
 				      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
 				        <span class="sr-only">Toggle navigation</span>
 				        <span class="icon-bar"></span>
@@ -66,25 +66,26 @@
 				    <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
 				      <ul class="nav navbar-nav">
 								<li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
-								<li><a type='button' ng-click="navigation.clone()"><i class="fa fa-clone" aria-hidden="true"></i> <span class="nav-label">Clone</span></a></li>
+								<li><a type='button' ng-hide="navigation.locked" title="This will pick new random colors on any non-anchored block!" ng-click="navigation.scramble()"><i class="fa fa-random" aria-hidden="true"></i> <span class="nav-label">Scramble</span></a></li>
 								<li><a type='button' ng-hide="navigation.locked" ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
 				      </ul>
 				    </nav>
 				  </div>
 				</header>
 
-
+  
 				<div ng-controller="SwatchController as swatch" class="cbody">
 					<div class="container theme-showcase content-row content-row-1">
 						<div class="swatch" ng-show="SwatchData.blocks" ng-cloak>
 								<div class="startblock block"></div>
 								<div class="blockbucket">
-										<span ng-repeat="block in SwatchData.blocks track by block.id" repeat-done="layoutDone()">
+										<span ng-repeat="block in SwatchData.blockarray" repeat-done="layoutDone()">
 												<div ng-hide="block.value == ''" class="colorblock block" id="block{{block.id}}" style="background-color:{{block.value | hex}};">
 														<span class="color-input">
 																<input ng-hide="SwatchData.locked" type="text" ng-model="block.value" ng-change="SwatchData.changeblock(block.id,block.value)" class="picker" name="picker-{{block.id}}" value="{{block.value | hex}}" /> 
-																<input type="text" onClick="this.select();" ng-model="block.value" class="blabel clippy pointer" title="copy to clipboard" onClick="this.select();" data-clipboard-target="#clip-b{{block.id}}" id="clip-b{{block.id}}" name="value-{{block.id}}" value="{{block.value | hex}}" readonly/> 
+																<input type="text" onClick="this.select();" class="blabel clippy pointer" title="copy to clipboard" onClick="this.select();" data-clipboard-target="#clip-b{{block.id}}" id="clip-b{{block.id}}" name="value-{{block.id}}" value="{{block.value | hex}}" readonly/> 
 														</span>
+														<button ng-hide="SwatchData.locked" ng-model="block.anchored" id="scrambler-t{{block.id}}" type="button" class="btn scramble-toggle blabel" data-toggle="button"><i class="fa fa-anchor" aria-hidden="true"></i></button>
 														<a ng-hide="SwatchData.locked || SwatchData.singleblock()" ng-click="SwatchData.deleteblock(block.id)" class="delete pointer"><i class="fa fa-times" aria-hidden="true"></i></a>
 												</div>
 										</span>

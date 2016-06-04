@@ -1,5 +1,5 @@
 body {
-		padding-top: 90px;
+	padding-top: 90px;
 	background-color: #eee;
 }
 .content-row{
@@ -25,6 +25,27 @@ body {
 }
 .nav li .nav-label {
 		opacity: 1;
+}
+.scramble-toggle:hover{
+	color:#fff;
+	opacity:1;
+}
+.scramble-toggle.active{
+	opacity:1;
+	color:#555;
+	background-color:#fff;
+}
+.scramble-toggle{
+	opacity:.1;
+	text-shadow: 0 1px rgba(0, 0, 0, .3), 1px 0 rgba(0, 0, 0, .3), 0 -1px rgba(0, 0, 0, .3), -1px 0 rgba(0, 0, 0, .3), 1px 1px rgba(0, 0, 0, .3), 1px -1px rgba(0, 0, 0, .3), -1px 1px rgba(0, 0, 0, .3), -1px -1px rgba(0, 0, 0, .3);
+	position:absolute;
+	top:8px;
+	left:8px;
+	padding:2px 5px !important;
+	border-radius:30px;
+	background-color:transparent;
+	color:#fff;
+	font-size: 16px !important;
 }
 .btn.clipboard{
 	vertical-align:top !important;
@@ -209,6 +230,9 @@ body {
 		}
 }
 @media (max-width: 767px) {
+		body {
+			padding-top: 50px;
+		}
 		.swatch {
 				display: block;
 				width: 100%;

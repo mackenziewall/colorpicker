@@ -300,7 +300,7 @@ body {
 .navbar-inverse .navbar-toggle:hover { background-color: #ececec;}
 .btn.generic{background-color:#aaaaaa;}
 .btn.generic:hover{background-color:#a0a0a0;color:#000 !important;}
-.anchored{background-color:#fff;
+.anchored{background-color:#fff !important;
 	opacity:1;
 	color:#555;
 	background-color:#fff;

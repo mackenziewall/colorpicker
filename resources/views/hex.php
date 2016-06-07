@@ -18,42 +18,29 @@
 				<script type="text/javascript" src="/js/clipboard.min.js"></script>
 				<script type="text/javascript" src="/js/doowb.angular-pusher.js"></script>
 				<script src="https://js.pusher.com/3.1/pusher.min.js"></script>
-
 				<script type="text/javascript" src="/js/app.js"></script>
 				<link rel="stylesheet" type="text/css" href="/css/app.css">
 				<script>
 				  angular.module("colorpicker").constant("CSRF_TOKEN", '<?php echo csrf_token(); ?>');
 				</script>
+				<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+				<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+				<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+				<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+				<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+				<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+				<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+				<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+				<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+				<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+				<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+				<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+				<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+				<meta name="msapplication-TileColor" content="#ffffff">
+				<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+				<meta name="theme-color" content="#ffffff">
 		</head>
 		<body role="document" ng-app="colorpicker">
-				<!-- Fixed navbar -->
-<!-- 				<div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
-            <ul class="nav navbar-nav">
-            	<li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
-							<li><a type='button' ng-click="navigation.clone()"><i class="fa fa-clone" aria-hidden="true"></i> <span class="nav-label">Clone</span></a></li>
-							<li><a type='button' ng-hide="navigation.locked" ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
-            </ul>
-          </div> -->
-<!-- 				<nav id="navbar" class="navbar " aria-expanded="false">
-					<div class="container">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#">HueHueHue</a>
-						</div>
-						<div id="navbar" class="navbar-collapse collapse" aria-expanded="true" ng-controller="navigationController as navigation">
-							<ul class="nav navbar-nav navbar-right">
-								<li><a href="/create"><i class="fa fa-asterisk" aria-hidden="true"></i> <span class="nav-label">New</span></a></li>
-								<li><a type='button' ng-click="navigation.clone()"><i class="fa fa-clone" aria-hidden="true"></i> <span class="nav-label">Clone</span></a></li>
-								<li><a type='button' ng-hide="navigation.locked" ng-click="navigation.lock()"><i class="fa fa-lock" aria-hidden="true"></i> <span class="nav-label">Lock</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</nav> -->
 				<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner" ng-controller="navigationController as navigation">
 				  <div class="container">
 				    <div class="navbar-header">
@@ -63,7 +50,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <a href="./" class="navbar-brand">HueHueHue</a>
+				      <a href="./" class="navbar-brand"></a>
 				    </div>
 				    <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
 				      <ul class="nav navbar-nav">
